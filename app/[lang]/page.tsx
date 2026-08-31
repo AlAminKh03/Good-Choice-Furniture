@@ -29,8 +29,8 @@ export async function generateMetadata({
   };
 }
 
-/** Rotating accent colors for the "recent jobs" gallery cards. */
-const jobColors = ["#e14b44", "#0ea5a0", "#1b1c26", "#f59e0b", "#8b5cf6"];
+/** Rotating accent colors for the "recent jobs" gallery cards (Emerald Elegance). */
+const jobColors = ["#1B5E4A", "#D4A574", "#9B8C7C", "#164237", "#4A9B7D"];
 
 export default async function HomePage({
   params,
@@ -47,84 +47,159 @@ export default async function HomePage({
     <>
       <JsonLd data={faqSchema(h.faqs)} />
 
-      {/* Hero — clean light, navy serif headline, dark visual card */}
-      <section className="bg-paper">
-        <div className="container-x grid items-center gap-10 py-10 sm:py-20 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <p className="eyebrow">{h.heroEyebrow}</p>
-            <h1 className="font-display mt-4 max-w-xl text-4xl/[1.08] text-navy sm:text-6xl/[1.05] lg:text-[4.25rem]/[1.02] rtl:leading-[1.3]">
-              {h.heroTitle}
-            </h1>
-            <p className="mt-5 max-w-xl text-base/7 sm:text-lg/8 text-ink/65">{h.heroSubtitle}</p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <WhatsAppButton
-                message={dict.floating.message}
-                label={dict.common.whatsappUs}
-                location="hero"
-                className="w-full sm:w-auto"
-              />
-              <Link
-                href={localizedPath(locale, "/quote")}
-                className="inline-flex items-center justify-center rounded-full border-2 border-navy/20 px-6 py-3 text-sm font-bold text-navy transition-colors hover:bg-navy hover:text-paper w-full sm:w-auto text-center"
-              >
-                {dict.common.getQuote}
-              </Link>
+      {/* Hero section - Premium polished design */}
+      <section className='bg-paper pt-20 pb-24 sm:pt-32 sm:pb-40'>
+        <div className='container-x'>
+          <div className='grid items-center gap-16 lg:grid-cols-[1fr_1.1fr] lg:gap-20'>
+            <div>
+              {/* Subtitle eyebrow */}
+              <div className='inline-flex items-center gap-2 mb-6'>
+                <div className='w-2 h-2 rounded-full bg-maroon'></div>
+                <span className='text-xs font-semibold tracking-widest text-maroon uppercase'>{h.heroEyebrow}</span>
+              </div>
+
+              {/* Main headline */}
+              <h1 className='font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-navy leading-[1.1] mb-8'>
+                {h.heroTitle}
+              </h1>
+
+              {/* Description */}
+              <p className='text-lg sm:text-xl text-ink/70 leading-relaxed mb-10 max-w-lg'>
+                {h.heroSubtitle}
+              </p>
+
+              {/* CTAs */}
+              <div className='flex flex-col sm:flex-row gap-4 sm:gap-3 mb-12'>
+                <WhatsAppButton
+                  message={dict.floating.message}
+                  label={dict.common.whatsappUs}
+                  location='hero'
+                  className='px-8 py-4 text-base font-bold rounded-lg shadow-lg hover:shadow-xl transition-shadow'
+                />
+                <Link
+                  href={localizedPath(locale, '/quote')}
+                  className='inline-flex items-center justify-center px-8 py-4 text-base font-bold border-2 border-maroon text-maroon rounded-lg hover:bg-maroon hover:text-paper transition-all duration-300'
+                >
+                  {dict.common.getQuote}
+                </Link>
+              </div>
+
+              {/* Trust note */}
+              <div className='flex items-start gap-3 text-sm text-ink/60'>
+                <CheckIcon className='w-5 h-5 text-maroon flex-shrink-0 mt-0.5' />
+                <span>{h.heroNote}</span>
+              </div>
             </div>
-            <p className="mt-6 flex items-center gap-2 text-xs font-semibold tracking-wide text-ink/50">
-              <CheckIcon className="size-4 text-wa" />
-              {h.heroNote}
+
+            {/* Hero image with subtle shadow and border */}
+            <div className='relative'>
+              <div className='absolute inset-0 bg-gradient-to-br from-maroon/10 to-maroon/5 rounded-2xl'></div>
+              <RealImage
+                src={getImageUrl('hero-main')}
+                alt={h.heroImageLabel}
+                ratio='aspect-[4/3]'
+                priority={true}
+                className='rounded-2xl shadow-2xl relative'
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services section - Premium refined */}
+      <section className='bg-sand py-24 sm:py-40'>
+        <div className='container-x'>
+          <div className='mb-20'>
+            <div className='inline-flex items-center gap-2 mb-4'>
+              <div className='w-2 h-2 rounded-full bg-maroon'></div>
+              <span className='text-xs font-semibold tracking-widest text-maroon uppercase'>{h.servicesEyebrow}</span>
+            </div>
+            <h2 className='font-display text-5xl sm:text-6xl font-bold text-navy mb-6 leading-tight'>
+              {h.servicesHeading}
+            </h2>
+            <p className='text-xl text-ink/70 max-w-3xl leading-relaxed'>
+              {h.servicesIntro}
             </p>
           </div>
-          <RealImage
-            src={getImageUrl("hero-main")}
-            alt={h.heroImageLabel}
-            ratio="aspect-[4/3]"
-            priority={true}
-          />
+
+          <div className='grid gap-8 sm:grid-cols-2 lg:grid-cols-3'>
+            {serviceSlugs.map((slug, i) => {
+              const service = dict.services[slug];
+              return (
+                <Reveal key={slug} delay={(i % 3) * 100}>
+                  <Link
+                    href={localizedPath(locale, `/services/${slug}`)}
+                    className='group flex flex-col h-full p-8 bg-paper rounded-xl border-2 border-transparent hover:border-maroon shadow-sm hover:shadow-xl transition-all duration-300'
+                  >
+                    {/* Icon circle */}
+                    <div className='w-14 h-14 rounded-full bg-maroon/10 group-hover:bg-maroon/20 transition-colors mb-6'></div>
+
+                    <h3 className='font-display text-2xl font-bold text-navy group-hover:text-maroon transition-colors mb-3'>
+                      {service.name}
+                    </h3>
+                    <p className='text-base text-ink/70 flex-1 leading-relaxed mb-6'>
+                      {service.description}
+                    </p>
+                    <div className='flex items-center gap-2 text-base font-semibold text-maroon group-hover:gap-3 transition-all'>
+                      {dict.common.learnMore}
+                      <span className='text-xl'>→</span>
+                    </div>
+                  </Link>
+                </Reveal>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* Trust row — hairline stat strip */}
-      <section className="border-y border-ink/8 bg-paper">
-        <div className="container-x grid grid-cols-2 divide-ink/8 py-7 sm:grid-cols-4 sm:divide-x sm:rtl:divide-x-reverse">
-          {h.stats.map((stat) => (
-            <div key={stat.label} className="px-4 py-2 text-center">
-              <p className="font-display text-3xl text-navy sm:text-4xl">{stat.value}</p>
-              <p className="mt-1 text-xs font-semibold text-ink/50">{stat.label}</p>
-            </div>
-          ))}
+      {/* How it works - Premium process */}
+      <section className='bg-sand py-24 sm:py-40'>
+        <div className='container-x'>
+          <div className='text-center mb-20'>
+            <h2 className='font-display text-5xl sm:text-6xl font-bold text-navy mb-6 leading-tight'>
+              How it works
+            </h2>
+            <p className='text-xl text-ink/70 max-w-3xl mx-auto leading-relaxed'>
+              Get your furniture disposed in three simple, straightforward steps
+            </p>
+          </div>
+
+          <div className='grid gap-12 sm:grid-cols-3 relative'>
+            {/* Connecting lines */}
+            <div className='hidden sm:block absolute top-1/4 left-1/3 right-1/3 h-1 bg-gradient-to-r from-transparent via-maroon/20 to-transparent'></div>
+
+            {[
+              { step: '1', icon: '📋', title: 'Tell us what you need', desc: 'Describe your furniture or items to be disposed' },
+              { step: '2', icon: '✓', title: 'Get instant pricing', desc: 'Transparent pricing with no hidden charges' },
+              { step: '3', icon: '🚚', title: 'We pick it up', desc: 'Fast, professional pickup and disposal' }
+            ].map((item, i) => (
+              <Reveal key={item.step} delay={i * 120}>
+                <div className='flex flex-col items-center text-center relative z-10'>
+                  {/* Step badge */}
+                  <div className='flex items-center justify-center w-20 h-20 rounded-full bg-maroon text-paper text-3xl font-bold mb-8 shadow-lg'>
+                    {item.step}
+                  </div>
+
+                  {/* Icon */}
+                  <span className='text-6xl mb-6'>{item.icon}</span>
+
+                  {/* Title */}
+                  <h3 className='font-display text-2xl font-bold text-navy mb-4'>
+                    {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className='text-base text-ink/70 leading-relaxed max-w-xs'>
+                    {item.desc}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Services — featured navy Sales card + 4 accent-chipped cards */}
-      <section className="container-x py-12 sm:py-24">
-        <Reveal>
-          <SectionHeading
-            eyebrow={h.servicesEyebrow}
-            title={h.servicesHeading}
-            intro={h.servicesIntro}
-          />
-        </Reveal>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {serviceSlugs.map((slug, i) => (
-            <Reveal
-              key={slug}
-              delay={(i % 3) * 90}
-              className={i === 0 ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}
-            >
-              <ServiceCard
-                service={dict.services[slug]}
-                locale={locale}
-                learnMore={dict.common.learnMore}
-                index={i}
-                featured={i === 0}
-              />
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* Why us — white cards, then intro video */}
+      {/* Why us */}
       <section className="bg-sand">
         <div className="container-x py-12 sm:py-24">
           <Reveal>
@@ -158,85 +233,100 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* Gallery preview — colorful job cards */}
-      <section className="container-x py-12 sm:py-24">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <SectionHeading eyebrow={h.galleryEyebrow} title={h.galleryHeading} />
+      {/* Gallery - Premium showcase */}
+      <section className='bg-paper py-24 sm:py-40'>
+        <div className='container-x'>
+          <div className='flex items-end justify-between mb-20 gap-8'>
+            <div>
+              <h2 className='font-display text-5xl sm:text-6xl font-bold text-navy mb-4 leading-tight'>
+                {h.galleryHeading}
+              </h2>
+            </div>
             <Link
-              href={localizedPath(locale, "/gallery")}
-              className="text-sm font-bold text-maroon decoration-maroon/40 decoration-2 underline-offset-8 hover:underline"
+              href={localizedPath(locale, '/gallery')}
+              className='text-base font-semibold text-maroon hover:text-brand-deep hover:gap-2 transition-all flex items-center gap-1 whitespace-nowrap'
             >
-              {h.galleryCta}
+              View all collection
+              <span className='text-xl'>→</span>
             </Link>
           </div>
-          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {dict.gallery.items.slice(0, 5).map((item, i) => (
-              <li
-                key={item.id}
-                className={i === 0 ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}
-              >
+
+          <ul className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[280px]'>
+            {dict.gallery.items.slice(0, 6).map((item, i) => (
+              <li key={item.id} className={i === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}>
                 <Link
-                  href={localizedPath(locale, "/gallery")}
-                  className="group relative flex h-full min-h-36 sm:min-h-40 items-end overflow-hidden rounded-2xl p-5 shadow-[0_10px_28px_-14px_rgba(27,28,38,0.4)] transition-transform hover:-translate-y-1"
-                  style={{ backgroundColor: jobColors[i % jobColors.length] }}
+                  href={localizedPath(locale, '/gallery')}
+                  className='group relative w-full h-full flex items-end overflow-hidden rounded-xl p-6 bg-linear-to-br from-maroon/85 to-brand-deep/85 hover:from-maroon hover:to-brand-deep shadow-lg hover:shadow-2xl transition-all duration-300'
                 >
-                  <span
-                    aria-hidden
-                    className="absolute end-4 top-4 block size-5 rotate-45 rounded-[3px] border-2 border-white/40"
-                  />
-                  <span className="text-sm font-bold text-white">{item.title}</span>
+                  <span className='text-lg font-bold text-white group-hover:translate-y-0 transform translate-y-1 transition-transform'>
+                    {item.title}
+                  </span>
                 </Link>
               </li>
             ))}
           </ul>
-        </Reveal>
+        </div>
       </section>
 
-      {/* Areas — simple inline row */}
-      <section className="border-y border-ink/8 bg-paper">
-        <div className="container-x py-8">
-          <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm font-semibold text-ink/55">
-            {areas.map((area, i) => (
-              <li key={area} className="flex items-center gap-4">
-                {i > 0 ? <span aria-hidden className="inline-block size-1.5 rotate-45 bg-maroon/50" /> : null}
-                {area}
-              </li>
+      {/* Testimonials - Premium social proof */}
+      <section className='bg-paper py-24 sm:py-40'>
+        <div className='container-x'>
+          <div className='text-center mb-20'>
+            <div className='inline-flex items-center gap-2 mb-4'>
+              <div className='w-2 h-2 rounded-full bg-maroon'></div>
+              <span className='text-xs font-semibold tracking-widest text-maroon uppercase'>{h.testimonialsEyebrow}</span>
+            </div>
+            <h2 className='font-display text-5xl sm:text-6xl font-bold text-navy mb-6 leading-tight'>
+              {h.testimonialsHeading}
+            </h2>
+            <p className='text-xl text-ink/70 max-w-2xl mx-auto'>
+              Trusted by thousands across Qatar
+            </p>
+          </div>
+
+          <div className='grid gap-8 sm:grid-cols-2 lg:grid-cols-3'>
+            {dict.testimonials.slice(0, 6).map((t, i) => (
+              <Reveal key={t.name} delay={(i % 3) * 100}>
+                <figure className='flex flex-col h-full p-8 bg-sand rounded-xl border-2 border-transparent hover:border-maroon shadow-sm hover:shadow-lg transition-all duration-300'>
+                  {/* Stars */}
+                  <div className='flex gap-1.5 text-brass mb-6'>
+                    {Array.from({ length: 5 }).map((_, s) => (
+                      <StarIcon key={s} className='w-5 h-5' />
+                    ))}
+                  </div>
+
+                  {/* Quote */}
+                  <blockquote className='flex-1 text-base text-ink/80 leading-relaxed mb-6 italic'>
+                    {String.fromCharCode(34)}{t.quote}{String.fromCharCode(34)}
+                  </blockquote>
+
+                  {/* Author */}
+                  <figcaption className='border-t border-border/50 pt-6 text-sm'>
+                    <p className='font-bold text-navy mb-1'>{t.name}</p>
+                    <p className='text-ink/60'>{dict.areas[t.areaKey]}</p>
+                  </figcaption>
+                </figure>
+              </Reveal>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
-      {/* Testimonials — white cards with gold stars */}
-      <section className="container-x py-12 sm:py-24">
-        <Reveal>
-          <SectionHeading eyebrow={h.testimonialsEyebrow} title={h.testimonialsHeading} />
-        </Reveal>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {dict.testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={(i % 4) * 80}>
-              <figure className="flex h-full flex-col rounded-2xl border border-ink/8 bg-white p-6 shadow-[0_1px_2px_rgba(38,33,30,0.05)]">
-                <div className="flex gap-0.5 text-brass" aria-hidden>
-                  {Array.from({ length: 5 }).map((_, s) => (
-                    <StarIcon key={s} className="size-4" />
-                  ))}
-                </div>
-                <blockquote className="mt-3 flex-1 text-sm/7 text-ink/80">“{t.quote}”</blockquote>
-                <figcaption className="mt-4 text-sm">
-                  <span className="font-bold text-maroon">— {t.name}</span>
-                  <span className="text-ink/50"> · {dict.areas[t.areaKey]}</span>
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="bg-sand">
-        <div className="container-x max-w-3xl py-16 sm:py-24">
+      {/* FAQ - Premium Q&A */}
+      <section className='bg-sand py-24 sm:py-40'>
+        <div className='container-x max-w-4xl'>
+          <div className='text-center mb-20'>
+            <h2 className='font-display text-5xl sm:text-6xl font-bold text-navy mb-6 leading-tight'>
+              {h.faqHeading}
+            </h2>
+            <p className='text-xl text-ink/70'>
+              Everything you need to know about our service
+            </p>
+          </div>
           <Reveal>
-            <FaqAccordion faqs={h.faqs} heading={h.faqHeading} />
+            <div className='bg-paper rounded-xl shadow-sm border border-border p-8 sm:p-12'>
+              <FaqAccordion faqs={h.faqs} heading='' />
+            </div>
           </Reveal>
         </div>
       </section>

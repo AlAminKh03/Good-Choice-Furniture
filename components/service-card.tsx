@@ -4,13 +4,13 @@ import type { Locale } from "@/lib/site";
 import { localizedPath } from "@/lib/site";
 import { ArrowIcon, serviceIcons } from "./icons";
 
-/** Per-service accent colors for the icon chips (screenshot theme). */
+/** Per-service accent colors for the icon chips (Emerald Elegance palette). */
 const accents: Record<ServiceSlug, string> = {
-  sales: "#e14b44",
-  repair: "#e75480",
-  installation: "#f59e0b",
-  moving: "#f97316",
-  disposal: "#8b5cf6",
+  sales: "#1B5E4A",
+  repair: "#9B8C7C",
+  installation: "#D4A574",
+  moving: "#164237",
+  disposal: "#4A9B7D",
 };
 
 /** Service card — white with a colored icon chip; `featured` = navy card. */
