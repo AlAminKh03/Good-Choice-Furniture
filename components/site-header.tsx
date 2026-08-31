@@ -5,21 +5,22 @@ import { localizedPath } from "@/lib/site";
 import { site } from "@/lib/site";
 import { PhoneIcon } from "./icons";
 import { LanguageToggle } from "./language-toggle";
+import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
 
 /** Sticky header: wordmark, primary nav, EN/AR toggle, phone chip, quote CTA. */
 export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const links = [
     { href: "/", label: dict.nav.home },
+    { href: "/disposal", label: "Disposal" },
     { href: "/services", label: dict.nav.services },
     { href: "/gallery", label: dict.nav.gallery },
     { href: "/about", label: dict.nav.about },
     { href: "/blog", label: dict.nav.blog },
-    { href: "/contact", label: dict.nav.contact },
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink/8 bg-paper/95 shadow-[0_1px_0_rgba(185,138,69,0.18)]">
+    <header className="sticky top-0 z-40 border-b border-border bg-paper/70 backdrop-blur-md shadow-[0_2px_8px_var(--color-shadow)]">
       <div className="container-x relative flex items-center justify-between gap-4 py-3">
         <Link
           href={localizedPath(locale, "/")}
@@ -52,6 +53,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
         </nav>
 
         <div className="flex items-center gap-2.5">
+          <ThemeToggle />
           <LanguageToggle locale={locale} label={dict.common.languageLabel} />
           <a
             href={site.phoneHref}

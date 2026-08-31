@@ -30,6 +30,10 @@ export interface ServiceContent {
   /** Pre-filled WhatsApp message specific to this service (PRD §5). */
   whatsappMessage: string;
   ctaLabel: string;
+  /** Related blog post slugs for "Expert Tips & Guides" section */
+  relatedBlogSlugs?: string[];
+  /** Curated related service slugs (not mechanical) */
+  relatedServiceSlugs?: string[];
 }
 
 export type BlogBlock =

@@ -221,6 +221,8 @@ export const ar: Dictionary = {
       whatsappMessage:
         "مرحبًا بيتك! أنا مهتم بالأثاث/الستائر. أرفق صورة المساحة — أرجو إرسال عرض السعر.",
       ctaLabel: "أرسل صورة مساحتك",
+      relatedBlogSlugs: [],
+      relatedServiceSlugs: ["installation", "repair"],
     },
     repair: {
       slug: "repair",
@@ -295,6 +297,8 @@ export const ar: Dictionary = {
       whatsappMessage:
         "مرحبًا بيتك! لدي كنبة/قطعة أثاث تحتاج تصليحًا. أرفق صورة الضرر — أرجو إرسال عرض السعر.",
       ctaLabel: "أرسل صورة الضرر",
+      relatedBlogSlugs: [],
+      relatedServiceSlugs: ["sales", "moving"],
     },
     installation: {
       slug: "installation",
@@ -364,6 +368,8 @@ export const ar: Dictionary = {
       whatsappMessage:
         "مرحبًا بيتك! أحتاج مساعدة في التركيب (تلفزيون / خزائن / مطبخ / أرضيات). أرفق صور القطع والغرفة — أرجو إرسال عرض السعر.",
       ctaLabel: "اطلب عرض سعر للتركيب",
+      relatedBlogSlugs: [],
+      relatedServiceSlugs: ["sales", "repair"],
     },
     moving: {
       slug: "moving",
@@ -433,6 +439,8 @@ export const ar: Dictionary = {
       whatsappMessage:
         "مرحبًا بيتك! أخطط لنقلة. من: ___ إلى: ___ التاريخ التقريبي: ___ — أرجو إرسال عرض السعر.",
       ctaLabel: "اطلب عرض سعر للنقل",
+      relatedBlogSlugs: [],
+      relatedServiceSlugs: ["disposal", "installation"],
     },
     disposal: {
       slug: "disposal",
@@ -521,6 +529,8 @@ export const ar: Dictionary = {
       whatsappMessage:
         "مرحبًا بيتك! أحتاج التخلص من مخلفات/أثاث. أرفق صور الأغراض وموقعي — أرجو عرض السعر للاستلام.",
       ctaLabel: "احجز موعد استلام",
+      relatedBlogSlugs: [],
+      relatedServiceSlugs: ["moving", "sales"],
     },
   },
   gallery: {

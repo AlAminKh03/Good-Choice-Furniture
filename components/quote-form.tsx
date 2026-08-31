@@ -76,8 +76,8 @@ export function QuoteForm({
   }
 
   const inputClass =
-    "w-full rounded-md border border-ink/15 bg-white/80 px-4 py-2.5 text-sm text-ink placeholder:text-ink/40 focus:border-brass";
-  const labelClass = "mb-1.5 block text-sm font-bold text-navy";
+    "w-full rounded-md border border-border bg-paper px-4 py-3 text-base sm:text-sm text-ink placeholder:text-ink/40 focus:border-maroon focus:ring-2 focus:ring-maroon/20 transition-all";
+  const labelClass = "mb-2 block text-sm font-bold text-navy";
 
   return (
     <form ref={formRef} onSubmit={submitWhatsApp} className="space-y-5" noValidate>

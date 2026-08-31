@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { GalleryItem, ServiceSlug } from "@/content/types";
+import { localizedPath } from "@/lib/site";
 import { PlaceholderImage } from "./placeholder-image";
 import { BeforeAfterSlider } from "./before-after-slider";
 
@@ -13,6 +15,7 @@ export function GalleryGrid({
   beforeLabel,
   afterLabel,
   emptyState,
+  locale = "en",
 }: {
   items: GalleryItem[];
   /** [slug, label] pairs for the filter chips. */
@@ -21,6 +24,7 @@ export function GalleryGrid({
   beforeLabel: string;
   afterLabel: string;
   emptyState: string;
+  locale?: string;
 }) {
   const [active, setActive] = useState<ServiceSlug | "all">("all");
   const visible = active === "all" ? items : items.filter((i) => i.service === active);
@@ -53,21 +57,26 @@ export function GalleryGrid({
         <ul className="mt-8 grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((item) => (
             <li key={item.id}>
-              <figure>
-                {item.kind === "pair" ? (
-                  <BeforeAfterSlider
-                    label={item.title}
-                    beforeLabel={beforeLabel}
-                    afterLabel={afterLabel}
-                  />
-                ) : (
-                  <PlaceholderImage label={item.title} />
-                )}
-                <figcaption className="mt-2.5 flex items-center gap-2 text-sm font-semibold text-ink/75">
-                  <span aria-hidden className="inline-block size-1.5 rotate-45 bg-brass" />
-                  {item.title}
-                </figcaption>
-              </figure>
+              <Link
+                href={localizedPath(locale, `/services/${item.service}`)}
+                className="group block rounded-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
+              >
+                <figure>
+                  {item.kind === "pair" ? (
+                    <BeforeAfterSlider
+                      label={item.title}
+                      beforeLabel={beforeLabel}
+                      afterLabel={afterLabel}
+                    />
+                  ) : (
+                    <PlaceholderImage label={item.title} />
+                  )}
+                  <figcaption className="mt-2.5 flex items-center gap-2 text-sm font-semibold text-ink/75 group-hover:text-maroon">
+                    <span aria-hidden className="inline-block size-1.5 rotate-45 bg-brass" />
+                    {item.title}
+                  </figcaption>
+                </figure>
+              </Link>
             </li>
           ))}
         </ul>

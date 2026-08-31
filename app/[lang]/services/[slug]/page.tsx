@@ -53,7 +53,9 @@ export default async function ServicePage({
   const dict = await getDictionary(locale);
   const s = dict.services[slug as ServiceSlug];
   const areas = areaKeys.map((k) => dict.areas[k]);
-  const related = serviceSlugs.filter((r) => r !== slug).slice(0, 3);
+  // Use curated related services, fallback to first 3 if not defined
+  const related = s.relatedServiceSlugs?.filter((r) => serviceSlugs.includes(r as ServiceSlug)) ||
+    serviceSlugs.filter((r) => r !== slug).slice(0, 3);
 
   return (
     <>
@@ -206,7 +208,38 @@ export default async function ServicePage({
         <FaqAccordion faqs={s.faqs} heading={dict.common.faqHeading} />
       </section>
 
-      {/* Related */}
+      {/* Related Blog Posts */}
+      {s.relatedBlogSlugs && s.relatedBlogSlugs.length > 0 ? (
+        <section className="bg-sand">
+          <div className="container-x py-14 sm:py-16">
+            <h2 className="font-display text-2xl text-navy">Expert Tips & Guides</h2>
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {s.relatedBlogSlugs
+                .map((blogSlug) => dict.blog.posts.find((p) => p.slug === blogSlug))
+                .filter(Boolean)
+                .map((post) => (
+                  <Link
+                    key={post!.slug}
+                    href={localizedPath(locale, `/blog/${post!.slug}`)}
+                    className="group rounded-xl border border-ink/10 bg-white/70 p-5 transition-all hover:border-maroon/50 hover:shadow-md"
+                  >
+                    <div className="mb-2 inline-block rounded-full bg-maroon/10 px-2.5 py-1">
+                      <span className="text-xs font-semibold text-maroon">{post!.category}</span>
+                    </div>
+                    <h3 className="font-bold text-navy group-hover:text-maroon">{post!.title}</h3>
+                    <p className="mt-2 text-sm/6 text-ink/70">{post!.excerpt}</p>
+                    <div className="mt-4 flex items-center justify-between text-xs text-ink/60">
+                      <span>{post!.date}</span>
+                      <ArrowIcon className="size-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 rtl:rotate-180" />
+                    </div>
+                  </Link>
+                ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {/* Related Services */}
       <section className="bg-sand">
         <div className="container-x py-14 sm:py-16">
           <div className="flex items-center justify-between gap-4">

@@ -24,16 +24,16 @@ export function MobileCtaBar({
   return (
     <nav
       aria-label={quoteLabel}
-      className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 border-t border-ink/10 bg-paper/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_16px_rgba(34,26,20,0.08)] md:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 gap-0.5 border-t border-border bg-paper/80 backdrop-blur-md pb-[env(safe-area-inset-bottom)] px-1 py-1.5 shadow-[0_-4px_16px_var(--color-shadow)] md:hidden"
     >
       <a
         href={site.phoneHref}
         data-track="call_click"
         data-track-location="mobile-bar"
-        className="flex flex-col items-center gap-1 py-2.5 text-[0.7rem] font-bold text-maroon"
+        className="flex flex-col items-center justify-center gap-1 rounded-lg py-3 px-2 text-[0.75rem] font-bold text-maroon hover:bg-sand transition-colors active:scale-95"
       >
-        <PhoneIcon className="size-5" />
-        {callLabel}
+        <PhoneIcon className="size-6" />
+        <span>{callLabel}</span>
       </a>
       <a
         href={waLink(message)}
@@ -41,17 +41,17 @@ export function MobileCtaBar({
         rel="noopener noreferrer"
         data-track="whatsapp_click"
         data-track-location="mobile-bar"
-        className="flex flex-col items-center gap-1 bg-wa py-2.5 text-[0.7rem] font-bold text-white"
+        className="flex flex-col items-center justify-center gap-1 rounded-lg bg-wa py-3 px-2 text-[0.75rem] font-bold text-white hover:bg-wa-deep transition-colors active:scale-95"
       >
-        <WhatsAppIcon className="size-5" />
-        {whatsappLabel}
+        <WhatsAppIcon className="size-6" />
+        <span>{whatsappLabel}</span>
       </a>
       <Link
         href={localizedPath(locale, "/quote")}
-        className="flex flex-col items-center gap-1 py-2.5 text-[0.7rem] font-bold text-ink/70"
+        className="flex flex-col items-center justify-center gap-1 rounded-lg py-3 px-2 text-[0.75rem] font-bold text-navy hover:bg-sand transition-colors active:scale-95"
       >
-        <QuoteDocIcon className="size-5" />
-        {quoteLabel}
+        <QuoteDocIcon className="size-6" />
+        <span>{quoteLabel}</span>
       </Link>
     </nav>
   );

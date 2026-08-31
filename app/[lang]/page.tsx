@@ -4,12 +4,13 @@ import { getDictionary, isLocale } from "@/lib/i18n";
 import { areaKeys, localizedPath, site } from "@/lib/site";
 import { faqSchema } from "@/lib/schema";
 import { serviceSlugs } from "@/content/types";
+import { getImageUrl } from "@/lib/images";
 import { JsonLd } from "@/components/json-ld";
 import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
 import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/faq";
-import { PlaceholderImage } from "@/components/placeholder-image";
+import { RealImage } from "@/components/real-image";
 import { VideoEmbed } from "@/components/video-embed";
 import { WhatsAppButton, CallButton } from "@/components/cta-buttons";
 import { Reveal } from "@/components/reveal";
@@ -74,10 +75,11 @@ export default async function HomePage({
               {h.heroNote}
             </p>
           </div>
-          <PlaceholderImage
-            label={h.heroImageLabel}
+          <RealImage
+            src={getImageUrl("hero-main")}
+            alt={h.heroImageLabel}
             ratio="aspect-[4/3]"
-            tone="dark"
+            priority={true}
           />
         </div>
       </section>

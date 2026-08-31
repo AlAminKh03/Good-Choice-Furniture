@@ -24,8 +24,8 @@ export function WhatsAppButton({
 }) {
   const styles =
     variant === "solid"
-      ? "bg-maroon text-white shadow-sm hover:bg-brand-deep"
-      : "border-2 border-paper/70 text-paper hover:bg-paper/10";
+      ? "bg-wa text-white shadow-md hover:bg-wa-deep hover:shadow-lg active:scale-95"
+      : "border-2 border-paper/70 text-paper hover:bg-paper/10 active:scale-95";
   return (
     <a
       href={waLink(message)}
@@ -33,7 +33,7 @@ export function WhatsAppButton({
       rel="noopener noreferrer"
       data-track="whatsapp_click"
       data-track-location={location}
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold transition-colors w-full sm:w-auto ${styles} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold transition-all duration-200 w-full sm:w-auto ${styles} ${className}`}
     >
       <WhatsAppIcon className="size-5" />
       {label}
@@ -53,16 +53,16 @@ export function CallButton({
   className?: string;
 }) {
   const styles = {
-    solid: "bg-maroon text-paper shadow-sm hover:bg-brand-deep",
-    "outline-light": "border-2 border-paper/70 text-paper hover:bg-paper/10",
-    "outline-dark": "border-2 border-maroon/40 text-maroon hover:bg-maroon/5",
+    solid: "bg-maroon text-paper shadow-md hover:bg-brand-deep hover:shadow-lg active:scale-95",
+    "outline-light": "border-2 border-paper/70 text-paper hover:bg-paper/10 active:scale-95",
+    "outline-dark": "border-2 border-maroon/40 text-maroon hover:bg-maroon/5 active:scale-95",
   }[variant];
   return (
     <a
       href={site.phoneHref}
       data-track="call_click"
       data-track-location={location}
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold transition-colors w-full sm:w-auto ${styles} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold transition-all duration-200 w-full sm:w-auto ${styles} ${className}`}
     >
       <PhoneIcon className="size-5" />
       {label}
