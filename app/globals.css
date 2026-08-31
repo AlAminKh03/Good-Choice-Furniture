@@ -1,80 +1,84 @@
 @import "tailwindcss";
 
 /**
- * Good Choice Furniture — "Editorial warmth renovation".
- * Light mode: warm ivory (#fcf7f4) + maroon (#e14b44) + navy headings.
- * Dark mode: rich navy ground + warm accents, preserving the editorial
- * aesthetic with high contrast for readability.
+ * Good Choice Furniture — TaskRabbit-inspired design.
+ * Clean, minimalist aesthetic with red/orange accents + social proof.
+ * Light mode: white background + red accent + clear hierarchy.
+ * Dark mode: deep background + red accent maintaining readability.
  */
 @theme {
-  /* Light mode (default, applies to :root and prefers-color-scheme: light) */
-  --color-paper: #fcf7f4; /* warm ivory page background */
-  --color-sand: #f8eeea; /* alternate section panels */
-  --color-sand-deep: #eedfd8; /* subtle borders on sand sections */
-  --color-maroon: #e14b44; /* primary brand, CTAs + accents */
-  --color-brand-deep: #c33730; /* hover state for maroon */
-  --color-navy: #1b1c26; /* headings, dark cards */
-  --color-navy-deep: #12131b; /* gradient depth */
-  --color-brass: #e9b949; /* gold accents + stars */
-  --color-ink: #26211e; /* warm near-black body text */
-  --color-border: rgba(38, 33, 30, 0.08); /* subtle dividers */
-  --color-shadow: rgba(27, 28, 38, 0.12); /* soft shadows */
+  /* Light mode — Emerald Elegance palette */
+  --color-paper: #F9F7F4; /* warm off-white background */
+  --color-sand: #F3F0ED; /* subtle warm gray section alternates */
+  --color-sand-deep: #E8E4DE; /* borders on gray sections */
+  --color-maroon: #1B5E4A; /* emerald brand primary */
+  --color-brand-deep: #164237; /* deeper emerald for hover states */
+  --color-navy: #2A2822; /* charcoal for text + headings */
+  --color-navy-deep: #1A1714; /* deeper charcoal for contrast */
+  --color-brass: #D4A574; /* warm brass gold accents */
+  --color-ink: #3E3935; /* warm charcoal body text */
+  --color-border: rgba(42, 40, 34, 0.12); /* emerald-tinted dividers */
+  --color-shadow: rgba(27, 94, 74, 0.08); /* emerald-tinted shadows */
+  --color-taupe: #9B8C7C; /* warm taupe bridge color */
 
   /* Conversion + trust */
   --color-wa: #16a34a; /* WhatsApp green */
   --color-wa-deep: #12803c;
-  --color-teal: #2f5d62; /* compliance signals */
+  --color-teal: #0088cc; /* trust signal blue */
 }
 
-/* Dark mode palette */
+/* Dark mode palette — Emerald Elegance dark variant */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-paper: #0d0f14; /* deep navy background */
-    --color-sand: #15171f; /* darker alternate sections */
-    --color-sand-deep: #1f2230; /* borders on sand in dark mode */
-    --color-maroon: #ff6b5b; /* warm coral-maroon for dark (high contrast) */
-    --color-brand-deep: #ff8872; /* lighter hover state */
-    --color-navy: #f0f4f9; /* light cream/off-white for headings and CTA text */
-    --color-navy-deep: #dce4ef; /* gradient lighter depth */
-    --color-brass: #f7b843; /* bright warm gold for dark mode */
-    --color-ink: #e8e4df; /* warm light text on dark */
-    --color-border: rgba(240, 244, 249, 0.1); /* subtle dividers in dark */
-    --color-shadow: rgba(0, 0, 0, 0.4); /* deeper shadows on dark */
-    --color-wa: #2ecc71; /* bright WhatsApp green */
+    --color-paper: #1A1714; /* deep warm dark background */
+    --color-sand: #252219; /* darker warm alternate sections */
+    --color-sand-deep: #30281f; /* borders on sand in dark mode */
+    --color-maroon: #4A9B7D; /* bright emerald for dark mode */
+    --color-brand-deep: #5FA98E; /* lighter emerald hover state */
+    --color-navy: #F5F0E8; /* warm white for headings on dark */
+    --color-navy-deep: #E8DDD2; /* warm light gray for secondary headings */
+    --color-brass: #DDB873; /* bright brass gold for dark mode */
+    --color-ink: #D4C9BA; /* warm light text on dark */
+    --color-border: rgba(212, 165, 116, 0.12); /* brass-tinted dividers in dark */
+    --color-shadow: rgba(27, 94, 74, 0.25); /* emerald-tinted shadows on dark */
+    --color-taupe: #B5A695; /* lighter taupe for dark mode */
+    --color-wa: #31a24c; /* bright WhatsApp green */
     --color-wa-deep: #4fd061;
   }
 }
 
 /* Explicit dark mode toggle */
 :root[data-theme="dark"] {
-  --color-paper: #0d0f14;
-  --color-sand: #15171f;
-  --color-sand-deep: #1f2230;
-  --color-maroon: #ff6b5b;
-  --color-brand-deep: #ff8872;
-  --color-navy: #f0f4f9;
-  --color-navy-deep: #dce4ef;
-  --color-brass: #f7b843;
-  --color-ink: #e8e4df;
-  --color-border: rgba(240, 244, 249, 0.1);
-  --color-shadow: rgba(0, 0, 0, 0.4);
-  --color-wa: #2ecc71;
+  --color-paper: #1A1714;
+  --color-sand: #252219;
+  --color-sand-deep: #30281f;
+  --color-maroon: #4A9B7D;
+  --color-brand-deep: #5FA98E;
+  --color-navy: #F5F0E8;
+  --color-navy-deep: #E8DDD2;
+  --color-brass: #DDB873;
+  --color-ink: #D4C9BA;
+  --color-border: rgba(212, 165, 116, 0.12);
+  --color-shadow: rgba(27, 94, 74, 0.25);
+  --color-taupe: #B5A695;
+  --color-wa: #31a24c;
   --color-wa-deep: #4fd061;
 }
 
 /* Explicit light mode toggle */
 :root[data-theme="light"] {
-  --color-paper: #fcf7f4;
-  --color-sand: #f8eeea;
-  --color-sand-deep: #eedfd8;
-  --color-maroon: #e14b44;
-  --color-brand-deep: #c33730;
-  --color-navy: #1b1c26;
-  --color-navy-deep: #12131b;
-  --color-brass: #e9b949;
-  --color-ink: #26211e;
-  --color-border: rgba(38, 33, 30, 0.08);
-  --color-shadow: rgba(27, 28, 38, 0.12);
+  --color-paper: #F9F7F4;
+  --color-sand: #F3F0ED;
+  --color-sand-deep: #E8E4DE;
+  --color-maroon: #1B5E4A;
+  --color-brand-deep: #164237;
+  --color-navy: #2A2822;
+  --color-navy-deep: #1A1714;
+  --color-brass: #D4A574;
+  --color-ink: #3E3935;
+  --color-border: rgba(42, 40, 34, 0.12);
+  --color-shadow: rgba(27, 94, 74, 0.08);
+  --color-taupe: #9B8C7C;
   --color-wa: #16a34a;
   --color-wa-deep: #12803c;
 }
@@ -127,21 +131,21 @@ body {
     letter-spacing: 0;
   }
 
-  /* Signature motif: diamond trellis in brass at low opacity,
+  /* Signature motif: diamond trellis in emerald at low opacity,
      inspired by mashrabiya screens. Hero frames + CTA band only. */
   .trellis {
     background-image:
       repeating-linear-gradient(
         45deg,
-        rgba(225, 75, 68, 0.10) 0,
-        rgba(225, 75, 68, 0.10) 1px,
+        rgba(27, 94, 74, 0.10) 0,
+        rgba(27, 94, 74, 0.10) 1px,
         transparent 1px,
         transparent 30px
       ),
       repeating-linear-gradient(
         -45deg,
-        rgba(225, 75, 68, 0.10) 0,
-        rgba(225, 75, 68, 0.10) 1px,
+        rgba(27, 94, 74, 0.10) 0,
+        rgba(27, 94, 74, 0.10) 1px,
         transparent 1px,
         transparent 30px
       );
@@ -151,15 +155,15 @@ body {
     background-image:
       repeating-linear-gradient(
         45deg,
-        rgba(225, 75, 68, 0.06) 0,
-        rgba(225, 75, 68, 0.06) 1px,
+        rgba(27, 94, 74, 0.06) 0,
+        rgba(27, 94, 74, 0.06) 1px,
         transparent 1px,
         transparent 30px
       ),
       repeating-linear-gradient(
         -45deg,
-        rgba(225, 75, 68, 0.06) 0,
-        rgba(225, 75, 68, 0.06) 1px,
+        rgba(27, 94, 74, 0.06) 0,
+        rgba(27, 94, 74, 0.06) 1px,
         transparent 1px,
         transparent 30px
       );
@@ -265,7 +269,7 @@ body {
     font-weight: 600;
     letter-spacing: 0.02em;
     transition: all 0.2s ease;
-    border-radius: 0.375rem;
+    border-radius: 1rem;
   }
 
   /* Primary CTA: maroon, full-width on mobile */
@@ -389,7 +393,7 @@ body {
   .t-cargo-cap-r { left: 28px; width: 44px; transform: rotateY(-90deg) translateZ(50px); }
   .t-cargo-top { left: 0; top: 5px; width: 100px; height: 44px; transform: rotateX(90deg) translateZ(27px); background: #20212b; }
   .t-emblem { position: absolute; left: 50%; top: 42%; width: 18px; height: 18px; margin: -9px 0 0 -9px; transform: rotate(45deg); border: 2px solid var(--color-brass); border-radius: 3px; }
-  .t-stripe { position: absolute; left: 6px; right: 6px; bottom: 5px; height: 3px; border-radius: 2px; background: rgba(233,185,73,0.75); }
+  .t-stripe { position: absolute; left: 6px; right: 6px; bottom: 5px; height: 3px; border-radius: 2px; background: var(--color-brass); }
   .t-junk { position: absolute; border-radius: 3px; }
   .t-junk-1 { left: 20px; top: -9px; width: 16px; height: 16px; background: var(--color-brass); transform: translateZ(14px) rotate(16deg); }
   .t-junk-2 { left: 56px; top: -7px; width: 13px; height: 13px; background: var(--color-maroon); transform: translateZ(6px) rotate(-14deg); }
