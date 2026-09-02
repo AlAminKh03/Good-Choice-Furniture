@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { GalleryItem, ServiceSlug } from "@/content/types";
-import { localizedPath } from "@/lib/site";
+import { localizedPath, type Locale } from "@/lib/site";
 import { PlaceholderImage } from "./placeholder-image";
 import { BeforeAfterSlider } from "./before-after-slider";
 
@@ -24,7 +24,7 @@ export function GalleryGrid({
   beforeLabel: string;
   afterLabel: string;
   emptyState: string;
-  locale?: string;
+  locale?: Locale;
 }) {
   const [active, setActive] = useState<ServiceSlug | "all">("all");
   const visible = active === "all" ? items : items.filter((i) => i.service === active);

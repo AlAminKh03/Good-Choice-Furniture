@@ -5,7 +5,7 @@
  */
 export const site = {
   /** Placeholder brand name — swap once finalized (PRD §1). */
-  name: "Baytak",
+  name: "Good Choice Furniture",
   /** Placeholder domain — open question: .qa vs .com (PRD §10). */
   url: "https://baytak.qa",
   phoneDisplay: "+974 5555 1234",

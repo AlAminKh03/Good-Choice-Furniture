@@ -17,8 +17,8 @@ export async function generateMetadata({
   const service = dict.services.disposal;
 
   return {
-    title: { absolute: service.title },
-    description: service.description,
+    title: { absolute: service.name },
+    description: service.cardDescription,
     alternates: {
       canonical: localizedPath(isLocale(lang) ? lang : "en", "/disposal"),
       languages: {
@@ -44,8 +44,8 @@ export default async function DisposalPage({
     <>
       <PageHero
         eyebrow="Eco-Friendly Solutions"
-        title={service.title}
-        subtitle={service.description}
+        title={service.name}
+        subtitle={service.cardDescription}
       >
         <WhatsAppButton
           message={dict.floating.message}
@@ -55,18 +55,18 @@ export default async function DisposalPage({
       </PageHero>
 
       {/* Overview */}
-      <section className="container-x py-12 sm:py-16">
+      <section className="container-x py-6 sm:py-8">
         <Reveal>
           <div className="prose prose-sm sm:prose max-w-3xl">
             <p className="text-lg text-ink/75">
-              {service.description}
+              {service.cardDescription}
             </p>
           </div>
         </Reveal>
       </section>
 
       {/* Features */}
-      <section className="container-x py-12 sm:py-16">
+      <section className="container-x py-6 sm:py-8">
         <Reveal>
           <h2 className="font-display mb-8 text-2xl text-navy">Why Choose Our Disposal Service?</h2>
         </Reveal>
@@ -83,7 +83,7 @@ export default async function DisposalPage({
       </section>
 
       {/* Process */}
-      <section className="container-x py-12 sm:py-16">
+      <section className="container-x py-6 sm:py-8">
         <Reveal>
           <h2 className="font-display mb-8 text-2xl text-navy">Our Process</h2>
         </Reveal>
@@ -105,11 +105,10 @@ export default async function DisposalPage({
       </section>
 
       {/* FAQs */}
-      <section className="container-x py-12 sm:py-16">
+      <section className="container-x py-6 sm:py-8">
         <Reveal>
-          <h2 className="font-display mb-8 text-2xl text-navy">Frequently Asked Questions</h2>
+          <FaqAccordion faqs={service.faqs} heading="Frequently Asked Questions" />
         </Reveal>
-        <FaqAccordion faqs={service.faqs} />
       </section>
 
       {/* CTA */}

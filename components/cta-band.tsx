@@ -23,8 +23,8 @@ export function CtaBand({
   quoteLabel: string;
 }) {
   return (
-    <section className="container-x py-6 sm:py-10">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy to-navy-deep px-6 py-14 text-center shadow-[0_24px_56px_-20px_rgba(18,19,27,0.5)] sm:px-12 sm:py-20">
+    <section className="container-x py-4 sm:py-6">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy to-navy-deep px-6 py-10 text-center shadow-[0_24px_56px_-20px_rgba(18,19,27,0.5)] sm:px-12 sm:py-14">
         <span
           aria-hidden
           className="absolute start-6 top-6 block size-6 rotate-45 rounded-[3px] border-2 border-brass/50"

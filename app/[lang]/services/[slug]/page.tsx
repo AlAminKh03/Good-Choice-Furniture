@@ -54,7 +54,7 @@ export default async function ServicePage({
   const s = dict.services[slug as ServiceSlug];
   const areas = areaKeys.map((k) => dict.areas[k]);
   // Use curated related services, fallback to first 3 if not defined
-  const related = s.relatedServiceSlugs?.filter((r) => serviceSlugs.includes(r as ServiceSlug)) ||
+  const related = (s.relatedServiceSlugs?.filter((r) => serviceSlugs.includes(r as ServiceSlug)) as ServiceSlug[] | undefined) ||
     serviceSlugs.filter((r) => r !== slug).slice(0, 3);
 
   return (
