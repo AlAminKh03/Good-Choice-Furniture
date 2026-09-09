@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { getDictionary, isLocale } from "@/lib/i18n";
-import { areaKeys, site } from "@/lib/site";
+import { site } from "@/lib/site";
 import { PageHero } from "@/components/page-hero";
 import { SectionHeading } from "@/components/section-heading";
-import { PlaceholderImage } from "@/components/placeholder-image";
+import Image from "next/image";
+import { getImageUrl } from "@/lib/images";
 import { CtaBand } from "@/components/cta-band";
 import { CheckIcon, PinIcon } from "@/components/icons";
 
@@ -33,6 +34,13 @@ export default async function AboutPage({
   const locale = isLocale(lang) ? lang : "en";
   const dict = await getDictionary(locale);
   const a = dict.about;
+  const workshopImage = getImageUrl("about-workshop");
+  const dohaImage = getImageUrl("about-doha");
+  // `crNumber` ships as a literal placeholder until the owner supplies the real
+  // one. Rendering it would print "C.R. 000000 (placeholder)" on a public page
+  // directly under a "Licensed & registered" heading — worse than showing
+  // nothing — so it stays hidden until it is a real number.
+  const hasRealCrNumber = !/placeholder|000000/i.test(site.crNumber);
 
   return (
     <>
@@ -46,8 +54,17 @@ export default async function AboutPage({
             </p>
           ))}
         </div>
-        {/* TODO(owner): team/truck photo (PRD §8) */}
-        <PlaceholderImage label={a.teamText} ratio="aspect-[4/3]" />
+        {workshopImage ? (
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+            <Image
+              src={workshopImage}
+              alt={a.workshopImageAlt}
+              fill
+              sizes="(max-width: 1024px) 100vw, 560px"
+              className="object-cover"
+            />
+          </div>
+        ) : null}
       </section>
 
       <section className="bg-sand">
@@ -73,18 +90,29 @@ export default async function AboutPage({
           <p className="mt-4 text-base/8 text-ink/75">{a.teamText}</p>
           <h2 className="font-display mt-10 text-3xl text-navy">{a.licensingHeading}</h2>
           <p className="mt-4 text-base/8 text-ink/75">{a.licensingText}</p>
-          <p className="mt-2 text-sm font-semibold text-ink/50">{site.crNumber}</p>
+          {hasRealCrNumber ? (
+            <p className="mt-2 text-sm font-semibold text-ink/50">{site.crNumber}</p>
+          ) : null}
+
+          {dohaImage ? (
+            <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-xl">
+              <Image
+                src={dohaImage}
+                alt={a.dohaImageAlt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 560px"
+                className="object-cover"
+              />
+            </div>
+          ) : null}
         </div>
-        <div className="rounded-xl border border-ink/10 bg-sand p-6">
+        <div className="self-start rounded-xl border border-ink/10 bg-sand p-6">
           <h3 className="font-display text-sm text-brass">{dict.common.areasHeading}</h3>
-          <ul className="mt-4 grid grid-cols-2 gap-3">
-            {areaKeys.map((k) => (
-              <li key={k} className="flex items-center gap-2 text-sm font-semibold text-ink/75">
-                <PinIcon className="size-4 text-brass" />
-                {dict.areas[k]}
-              </li>
-            ))}
-          </ul>
+          <p className="mt-3 mb-0 flex items-center gap-2 text-lg font-bold text-navy">
+            <PinIcon className="size-5 shrink-0 text-brass" />
+            {dict.common.areasAllQatar}
+          </p>
+          <p className="mt-3 mb-0 text-sm/6 text-ink/65">{dict.home.areasText}</p>
         </div>
       </section>
 

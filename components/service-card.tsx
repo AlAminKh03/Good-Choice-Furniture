@@ -1,10 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ServiceContent, ServiceSlug } from "@/content/types";
 import type { Locale } from "@/lib/site";
 import { localizedPath } from "@/lib/site";
 import { getImageUrl } from "@/lib/images";
 import { ArrowIcon, serviceIcons } from "./icons";
-import { RealImage } from "./real-image";
 
 /** Per-service accent colors for the icon chips (Emerald Elegance palette). */
 const accents: Record<ServiceSlug, string> = {
@@ -15,14 +15,15 @@ const accents: Record<ServiceSlug, string> = {
   disposal: "#4A9B7D",
 };
 
-// disposal intentionally has no card image yet — no distinct verified
-// stock photo exists for it that isn't already used elsewhere; it falls
-// back to the accent-colored panel below until a real photo is supplied.
+// Every service now has a distinct card photo. A slug left out of this map
+// still renders — it falls back to the accent-colored panel below — so it is
+// safe to drop an entry while waiting on a real photo for that service.
 const cardImageKeys: Partial<Record<ServiceSlug, string>> = {
   sales: "card-sales",
   repair: "card-repair",
   installation: "card-installation",
   moving: "card-moving",
+  disposal: "card-disposal",
 };
 
 /** Service card — white with a colored icon chip; `featured` = navy card. */
@@ -52,11 +53,13 @@ export function ServiceCard({
         className="group relative flex h-full flex-col justify-end overflow-hidden rounded-2xl p-5 sm:p-6 shadow-[0_16px_40px_-16px_rgba(18,19,27,0.45)] transition-all hover:-translate-y-1"
       >
         {imageSrc ? (
-          <img
+          <Image
             src={imageSrc}
             alt=""
             aria-hidden
-            className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : null}
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy/80 to-navy/20" />
@@ -82,13 +85,18 @@ export function ServiceCard({
       href={localizedPath(locale, `/services/${service.slug}`)}
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ink/8 bg-white shadow-[0_1px_2px_rgba(38,33,30,0.05)] transition-all hover:-translate-y-1 hover:shadow-[0_14px_34px_-14px_rgba(27,28,38,0.3)]"
     >
-      <div className="relative aspect-video overflow-hidden">
+      {/* 4:3 rather than 16:9 — several source photos are portrait, and a
+          wide crop cut the worker out of the frame. The taller box shows much
+          more of the photo at the same card width. */}
+      <div className="relative aspect-[4/3] overflow-hidden">
         {imageSrc ? (
-          <img
+          <Image
             src={imageSrc}
             alt=""
             aria-hidden
-            className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <div className="size-full" style={{ backgroundColor: accent, opacity: 0.15 }} />

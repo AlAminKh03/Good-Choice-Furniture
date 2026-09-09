@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary, isLocale } from "@/lib/i18n";
-import { areaKeys, site } from "@/lib/site";
+import { site } from "@/lib/site";
 import { waLink } from "@/lib/whatsapp";
 import { serviceSlugs } from "@/content/types";
 import { PageHero } from "@/components/page-hero";
@@ -134,14 +134,11 @@ export default async function ContactPage({
             <MapEmbed title={c.mapTitle} />
             <div className="rounded-xl border border-ink/10 bg-white/70 p-6">
               <h3 className="font-display text-sm text-brass">{dict.common.areasHeading}</h3>
-              <ul className="mt-4 grid grid-cols-2 gap-2.5">
-                {areaKeys.map((k) => (
-                  <li key={k} className="flex items-center gap-2 text-sm font-semibold text-ink/75">
-                    <PinIcon className="size-4 text-brass" />
-                    {dict.areas[k]}
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-3 mb-0 flex items-center gap-2 text-lg font-bold text-navy">
+                <PinIcon className="size-5 shrink-0 text-brass" />
+                {dict.common.areasAllQatar}
+              </p>
+              <p className="mt-3 mb-0 text-sm/6 text-ink/65">{dict.home.areasText}</p>
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { localizedPath } from "@/lib/site";
 import { site } from "@/lib/site";
 import { waLink } from "@/lib/whatsapp";
 import { PhoneIcon, WhatsAppIcon, MailIcon, ClockIcon } from "./icons";
+import { BrandMark } from "./brand-mark";
 
 /** Light footer: brand blurb + service / company / contact columns. */
 export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary }) {
@@ -26,7 +27,7 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
       <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <span aria-hidden className="block size-8 rotate-45 rounded-[4px] bg-maroon" />
+            <BrandMark className="size-9 shrink-0" />
             <span className="font-display text-2xl text-navy">{site.name}</span>
           </div>
           <p className="mt-4 max-w-xs text-sm/6 text-ink/60">{dict.footer.blurb}</p>

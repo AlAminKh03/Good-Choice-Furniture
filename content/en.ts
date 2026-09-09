@@ -8,7 +8,7 @@ import type { Dictionary } from "./types";
 export const en: Dictionary = {
   locale: "en",
   meta: {
-    defaultTitle: "Baytak Home Services — Furniture, Repair, Moving & Disposal in Qatar",
+    defaultTitle: "Good Choice Furniture Home Services — Furniture, Repair, Moving & Disposal in Qatar",
     defaultDescription:
       "Furniture & curtain sales, sofa repair, installation, home moving and junk disposal across Doha and Qatar. Message us on WhatsApp for a same-day quote.",
   },
@@ -18,6 +18,7 @@ export const en: Dictionary = {
     gallery: "Gallery",
     about: "About",
     blog: "Tips",
+    disposal: "Disposal",
     quote: "Get a Quote",
     contact: "Contact",
   },
@@ -33,11 +34,18 @@ export const en: Dictionary = {
     ourProcess: "How it works",
     faqHeading: "Frequently asked questions",
     areasHeading: "Areas we serve",
+    areasAllQatar: "Everywhere in Qatar",
     relatedServices: "Related services",
     backToServices: "All services",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     languageLabel: "العربية",
+    themeToDark: "Switch to dark mode",
+    themeToLight: "Switch to light mode",
+    ratingLabel: "5 out of 5 stars",
+    breadcrumbLabel: "Breadcrumb",
+    filtersLabel: "Filter by service",
+    primaryNavLabel: "Primary",
   },
   header: {
     tagline: "Home services across Qatar",
@@ -54,7 +62,7 @@ export const en: Dictionary = {
   },
   floating: {
     label: "Chat with us on WhatsApp",
-    message: "Hello Baytak! I'd like to ask about your home services.",
+    message: "Hello Good Choice Furniture! I'd like to ask about your home services.",
   },
   areas: {
     doha: "Doha",
@@ -66,7 +74,7 @@ export const en: Dictionary = {
     ummSalal: "Umm Salal",
   },
   home: {
-    metaTitle: "Home Services in Doha & Qatar — Repair, Moving, Installation | Baytak",
+    metaTitle: "Home Services in Doha & Qatar — Repair, Moving, Installation | Good Choice Furniture",
     metaDescription:
       "One call for furniture & curtains, sofa repair, TV & kitchen installation, home moving and junk disposal across Doha, Al Rayyan, Lusail and beyond. WhatsApp us for a same-day quote.",
     heroEyebrow: "Doha · Al Rayyan · Lusail · Al Wakrah",
@@ -74,9 +82,61 @@ export const en: Dictionary = {
     heroSubtitle:
       "Furniture & curtains, sofa repair, installations, moving and junk disposal — booked in minutes over WhatsApp, done right the first time.",
     heroNote: "Same-day quotes · No obligation · Arabic & English speaking team",
-    heroImageLabel: "Our team at work — photo coming soon",
+    heroImageLabel:
+      "Living room fitted with made-to-measure curtains, seating and a built-in TV unit",
+    heroChat: {
+      headerName: "Good Choice Furniture",
+      // Response-time claim, and it has to stay true — this is the same rule
+      // that got the invented star rating pulled. It deliberately matches the
+      // "same-day quotes" promise already made in heroNote.
+      headerStatus: "Same-day replies · Arabic & English",
+      greeting: "Hi! Tell us what your home needs and we'll send a quote the same day.",
+      greetingTime: "09:41",
+      photoCaption: "Furniture, curtains and fitted units — measured and installed.",
+      chipsLabel: "Tap one to start the chat",
+      // Written first-person: these land pre-typed in the visitor's own
+      // WhatsApp, so they have to sound like the customer, not like us.
+      chips: [
+        {
+          id: "repair",
+          label: "My sofa needs repair",
+          message: "Hi Good Choice — my sofa needs repair. Could you take a look?",
+        },
+        {
+          id: "sales",
+          label: "I need curtains measured",
+          message: "Hi Good Choice — I'd like curtains measured and fitted. What are the next steps?",
+        },
+        {
+          id: "moving",
+          label: "I'm moving home next month",
+          message: "Hi Good Choice — I'm moving home next month and need a quote for the move.",
+        },
+        {
+          id: "installation",
+          label: "Mount my TV on the wall",
+          message: "Hi Good Choice — I'd like a TV mounted on the wall. When are you available?",
+        },
+        {
+          id: "disposal",
+          label: "Clear out old furniture",
+          message: "Hi Good Choice — I have old furniture to clear out. Can you collect it?",
+        },
+        {
+          id: "other",
+          label: "Something else",
+          message: "Hi Good Choice — I have a question about your services.",
+        },
+      ],
+    },
     videoHeading: "See us at work",
-    videoTitle: "Baytak — how we work",
+    videoTitle: "Good Choice Furniture — how we work",
+    videoPlayLabel: "Play the video",
+    // TODO(owner): "1,500+" and "24h" are unverified — confirm both or change
+    // them before launch. The other two are structural facts about the site
+    // (five services, seven listed areas) and are safe. A jobs-completed count
+    // nobody has counted is the kind of claim that is trivially challenged,
+    // and it sits next to testimonials that are still samples.
     stats: [
       { value: "1,500+", label: "Jobs completed" },
       { value: "5", label: "Services under one roof" },
@@ -87,7 +147,7 @@ export const en: Dictionary = {
     servicesHeading: "Five services, one WhatsApp message away",
     servicesIntro:
       "Send us a photo of what you need — we'll reply with a clear price and the earliest available slot.",
-    whyEyebrow: "Why Baytak",
+    whyEyebrow: "Why Good Choice Furniture",
     whyHeading: "The crew Qatar homes call first",
     whyIntro:
       "We show up on time, protect your floors and walls, and leave the place cleaner than we found it.",
@@ -106,7 +166,7 @@ export const en: Dictionary = {
       },
       {
         title: "Bilingual & local",
-        text: "Arabic and English speaking team based in Doha, serving every municipality from Al Khor to Al Wakrah.",
+        text: "Arabic and English speaking team, serving every municipality in Qatar.",
       },
     ],
     areasEyebrow: "Coverage",
@@ -125,7 +185,7 @@ export const en: Dictionary = {
       },
       {
         q: "Which areas do you cover?",
-        a: "We cover Doha, Al Rayyan, Al Wakrah, Lusail, The Pearl, Al Khor and Umm Salal — and most places in between.",
+        a: "Everywhere in Qatar. Wherever you are in the country, message us and we will come to you.",
       },
       {
         q: "Do you work on Fridays?",
@@ -136,14 +196,26 @@ export const en: Dictionary = {
         a: "Yes — our disposal service can remove your old sofa, wardrobes or appliances during the same visit. Just mention it when booking.",
       },
     ],
+    tickerItems: [
+      "Furniture & curtains, made to measure",
+      "Sofas repaired, not replaced",
+      "TV units, kitchens & flooring installed",
+      "Homes & offices moved",
+      "And we take the junk away too",
+    ],
+    steps: [
+      { title: "Message us", text: "Send a photo of what you need over WhatsApp or call us directly." },
+      { title: "Get your price", text: "We reply with a clear quote and the earliest available slot — no obligation." },
+      { title: "We get it done", text: "Our team shows up on time, does the job right, and cleans up after." },
+    ],
     ctaTitle: "Ready when you are",
     ctaText:
       "Send a photo, get a price, pick a time. It really is that simple.",
   },
   servicesIndex: {
-    metaTitle: "Our Services — Furniture, Repair, Installation, Moving, Disposal | Baytak",
+    metaTitle: "Our Services — Furniture, Repair, Installation, Moving, Disposal | Good Choice Furniture",
     metaDescription:
-      "Explore Baytak's five home services in Qatar: furniture & curtain sales, sofa repair, installations, home & office moving, and junk disposal.",
+      "Explore Good Choice Furniture's five home services in Qatar: furniture & curtain sales, sofa repair, installations, home & office moving, and junk disposal.",
     eyebrow: "Services",
     heading: "Everything your home needs, under one roof",
     intro:
@@ -152,11 +224,31 @@ export const en: Dictionary = {
   services: {
     sales: {
       slug: "sales",
+      subcategories: [
+        {
+          slug: "furniture-sales",
+          label: "Furniture Sales",
+          description:
+            "Sofas, beds, majlis seating and dining sets — delivered and assembled across Qatar.",
+        },
+        {
+          slug: "curtains-draping",
+          label: "Curtains & Draping",
+          description:
+            "Made-to-measure curtains, blackout linings and sheers, measured and fitted in your home.",
+        },
+        {
+          slug: "decor-accessories",
+          label: "Decor & Accessories",
+          description:
+            "Rugs, cushions, wall pieces and the finishing touches that pull a room together.",
+        },
+      ],
       name: "Furniture & Curtain Sales",
       tagline: "Made-to-measure curtains and furniture that fits your space",
       cardDescription:
         "Curtains, sofas, majlis sets and more — measured, supplied and fitted by our own team.",
-      metaTitle: "Curtains & Furniture Sales in Doha | Baytak",
+      metaTitle: "Curtains & Furniture Sales in Doha | Good Choice Furniture",
       metaDescription:
         "Made-to-measure curtains, sofas and furniture supplied and fitted across Qatar. Send us a photo of your space on WhatsApp for a same-day quote.",
       heroSubtitle:
@@ -203,8 +295,8 @@ export const en: Dictionary = {
         },
       ],
       showcase: [
-        { title: "Living room curtains", caption: "Wave sheer + blackout combo, Lusail apartment" },
-        { title: "Majlis seating", caption: "Traditional floor seating, Al Rayyan villa" },
+        { title: "Living room curtains", caption: "Wave sheer + blackout combo" },
+        { title: "Majlis seating", caption: "Traditional floor seating" },
       ],
       faqs: [
         {
@@ -240,19 +332,44 @@ export const en: Dictionary = {
           a: "We can arrange flexible payment plans for orders over QAR 5,000. Speak to our team about options when you call for your quote.",
         },
       ],
+      selectorDetails: [
+        "Browse our curated furniture collection with expert guidance",
+        "Free delivery and setup included in most purchases",
+      ],
+      selectorTrending: "Minimalist design, modular sofas, and sustainable materials",
       whatsappMessage:
-        "Hello Baytak! I'm interested in furniture and curtains. I'm attaching photos of my space — please send me a quote.",
+        "Hello Good Choice Furniture! I'm interested in furniture and curtains. I'm attaching photos of my space — please send me a quote.",
       ctaLabel: "Send a photo of your space",
       relatedBlogSlugs: ["choosing-right-sofa-size", "smart-furniture-trends", "curtain-styles-qatar"],
       relatedServiceSlugs: ["installation", "repair"],
     },
     repair: {
       slug: "repair",
+      subcategories: [
+        {
+          slug: "sofa-repair",
+          label: "Sofa & Couch Repair",
+          description:
+            "Sagging seats, broken frames and worn cushions repaired at your home or in our workshop.",
+        },
+        {
+          slug: "upholstery-restoration",
+          label: "Upholstery Restoration",
+          description:
+            "New fabric or leather over your existing frame — choose from our swatch book.",
+        },
+        {
+          slug: "frame-structure",
+          label: "Frame & Structure",
+          description:
+            "Wobbly legs, cracked joints and split timber rebuilt so the piece lasts again.",
+        },
+      ],
       name: "Sofa & Furniture Repair",
       tagline: "Re-upholstery, frame repair and foam replacement",
       cardDescription:
         "Sagging seats, torn fabric, broken frames — we repair and re-upholster sofas and furniture.",
-      metaTitle: "Sofa & Furniture Repair in Doha | Baytak",
+      metaTitle: "Sofa & Furniture Repair in Doha | Good Choice Furniture",
       metaDescription:
         "Sofa repair, re-upholstery, foam replacement and furniture restoration across Qatar. WhatsApp a photo of the damage for a fixed quote.",
       heroSubtitle:
@@ -299,9 +416,9 @@ export const en: Dictionary = {
         },
       ],
       showcase: [
-        { title: "Three-seater re-upholstery", caption: "Full re-cover in linen blend, West Bay" },
-        { title: "Foam replacement", caption: "Seat cushions rebuilt, Al Wakrah" },
-        { title: "Armchair frame repair", caption: "Cracked frame rebuilt and re-covered, The Pearl" },
+        { title: "Three-seater re-upholstery", caption: "Full re-cover in linen blend" },
+        { title: "Foam replacement", caption: "Seat cushions rebuilt" },
+        { title: "Armchair frame repair", caption: "Cracked frame rebuilt and re-covered" },
       ],
       faqs: [
         {
@@ -337,19 +454,56 @@ export const en: Dictionary = {
           a: "Partial changes are possible: we can reshape cushions, change the firmness, or recolour separate pieces. Full structural changes (arm height, seat depth) depend on the frame."
         },
       ],
+      selectorDetails: [
+        "Expert repair for sofas, chairs, and upholstery",
+        "Colour matching and fabric restoration available",
+      ],
+      selectorTrending: "Premium fabric repairs, vintage furniture restoration",
       whatsappMessage:
-        "Hello Baytak! I have a sofa that needs repair. I'm attaching photos of the damage — please quote me.",
+        "Hello Good Choice Furniture! I have a sofa that needs repair. I'm attaching photos of the damage — please quote me.",
       ctaLabel: "Send a photo of the damage",
       relatedBlogSlugs: ["sofa-care-qatar-heat", "when-to-repair-vs-replace"],
       relatedServiceSlugs: ["sales", "moving"],
     },
     installation: {
       slug: "installation",
+      subcategories: [
+        {
+          slug: "curtain-installation",
+          label: "Curtain Installation",
+          description:
+            "Rails, tracks and rods fitted level and secure — including high and awkward windows.",
+        },
+        {
+          slug: "kitchen-cabinets",
+          label: "Kitchen Cabinets",
+          description:
+            "Full kitchen fit-outs and cabinet replacements, measured twice and installed once.",
+        },
+        {
+          slug: "tv-unit",
+          label: "TV Units",
+          description:
+            "TV consoles and media walls built in, with the cables run out of sight.",
+        },
+        {
+          slug: "furniture-assembly",
+          label: "Furniture Assembly",
+          description:
+            "Flat-pack and imported furniture assembled properly, with the packaging taken away.",
+        },
+        {
+          slug: "wall-mounting",
+          label: "Wall Mounting",
+          description:
+            "TVs, shelves, mirrors and cabinets anchored safely into concrete or plasterboard.",
+        },
+      ],
       name: "Installation Services",
       tagline: "TV units, wall cabinets, kitchens and flooring",
       cardDescription:
         "TV mounting, wall units, kitchen cabinets and flooring — installed level, secure and tidy.",
-      metaTitle: "TV, Kitchen & Flooring Installation in Doha | Baytak",
+      metaTitle: "TV, Kitchen & Flooring Installation in Doha | Good Choice Furniture",
       metaDescription:
         "Professional installation of TV units, wall cabinets, kitchen cabinets and flooring across Qatar. Get a fixed quote on WhatsApp.",
       heroSubtitle:
@@ -429,19 +583,44 @@ export const en: Dictionary = {
           a: "A single TV mount (labour + fixings) is QAR 300–600 depending on TV size and wall type. Built-in shelving systems cost QAR 1,500–3,000+. Flooring and kitchens are quoted per project."
         },
       ],
+      selectorDetails: [
+        "Professional installation for TVs, cabinets, and shelving",
+        "Wall assessment and safety protocols included",
+      ],
+      selectorTrending: "Wall-mounted entertainment systems, custom shelving",
       whatsappMessage:
-        "Hello Baytak! I need installation help (TV / cabinets / kitchen / flooring). I'm attaching photos of the items and room — please quote me.",
+        "Hello Good Choice Furniture! I need installation help (TV / cabinets / kitchen / flooring). I'm attaching photos of the items and room — please quote me.",
       ctaLabel: "Get an installation quote",
       relatedBlogSlugs: ["tv-wall-mount-installation", "kitchen-cabinet-installation"],
       relatedServiceSlugs: ["sales", "repair"],
     },
     moving: {
       slug: "moving",
+      subcategories: [
+        {
+          slug: "furniture-moving",
+          label: "Furniture Moving",
+          description:
+            "Villa and apartment moves with disassembly, padding and reassembly at the other end.",
+        },
+        {
+          slug: "packing-services",
+          label: "Packing Services",
+          description:
+            "Boxes, wrapping and labelling for the whole home — or hand us the fragile items only.",
+        },
+        {
+          slug: "relocation-support",
+          label: "Relocation Support",
+          description:
+            "Office and staff moves planned around your working hours to keep downtime short.",
+        },
+      ],
       name: "Moving & Shifting",
       tagline: "Home and office moves, packed and protected",
       cardDescription:
         "Apartment, villa and office moves across Qatar — packing, dismantling, transport and reassembly.",
-      metaTitle: "Home & Office Moving in Doha, Qatar | Baytak",
+      metaTitle: "Home & Office Moving in Doha, Qatar | Good Choice Furniture",
       metaDescription:
         "Careful home and office moving across Qatar. Packing, dismantling, transport and reassembly by one crew. Get a moving quote on WhatsApp.",
       heroSubtitle:
@@ -521,23 +700,54 @@ export const en: Dictionary = {
           a: "Message us during your quote process — our crew can help identify items worth keeping and arrange disposal of everything else in a single pickup."
         },
       ],
+      selectorDetails: [
+        "Safe furniture moving with professional packing",
+        "Assembly and disassembly services included",
+      ],
+      selectorTrending: "Corporate relocations, apartment moves within Doha",
       whatsappMessage:
-        "Hello Baytak! I'm planning a move. From: ___ To: ___ Approximate date: ___ — please send me a quote.",
+        "Hello Good Choice Furniture! I'm planning a move. From: ___ To: ___ Approximate date: ___ — please send me a quote.",
       ctaLabel: "Get a moving quote",
       relatedBlogSlugs: ["moving-costs-breakdown", "furniture-assembly-after-moving"],
       relatedServiceSlugs: ["disposal", "installation"],
     },
     disposal: {
       slug: "disposal",
+      subcategories: [
+        {
+          slug: "furniture-disposal",
+          label: "Furniture Disposal",
+          description:
+            "Old sofas, beds and wardrobes collected and taken to the right facility.",
+        },
+        {
+          slug: "fabric-recycling",
+          label: "Fabric Waste Recycling",
+          description:
+            "Offcuts, old upholstery and textile waste separated out for recycling.",
+        },
+        {
+          slug: "bulk-removal",
+          label: "Bulk Removal",
+          description:
+            "Whole-property clear-outs before handover, loaded and hauled in a single visit.",
+        },
+      ],
       name: "Junk & Waste Disposal",
       tagline: "Old furniture and household junk, removed responsibly",
       cardDescription:
         "Sofas, wardrobes, appliances and household junk collected and disposed of the right way.",
-      metaTitle: "Furniture Removal & Junk Disposal in Doha | Baytak",
+      metaTitle: "Furniture Removal & Junk Disposal in Doha | Good Choice Furniture",
       metaDescription:
         "Responsible disposal of old furniture, appliances and household junk across Qatar, following Ministry of Municipality waste-segregation guidance. WhatsApp for pickup.",
       heroSubtitle:
         "Clearing a flat, replacing a sofa, or emptying a villa before handover — we collect it, segregate it, and dispose of it properly.",
+      // TODO(owner): this page makes four claims nobody has confirmed yet —
+      // the named facilities (Ain Khaled, Al Wakrah), the QAR price ranges,
+      // "we hold documentation of disposal", and the reuse-centre routing.
+      // These are operational and legal statements about how the business
+      // actually handles waste; verify each before launch or soften it.
+      // PRD §8 already asks the owner to confirm accepted waste types.
       overview: [
         "Leaving furniture by the bins risks building fines, a delayed deposit refund, or simply having items dumped illegally in the desert. Our disposal service collects items from inside your home, handles the heavy lifting, and takes everything to the correct municipal facilities across Qatar. We're familiar with Doha's Ain Khaled landfill, Al Wakrah's waste segregation centre, and specialized handlers for electronics and appliances.",
         "Items in good condition are documented and directed to reuse centres where possible; everything else is segregated into metals, wood, plastic and general waste as per Ministry of Municipality guidelines. A full villa clear-out costs QAR 2,500–4,500 depending on volume; a single sofa removal is QAR 500–800. All quotes are fixed prices before we arrive.",
@@ -634,37 +844,79 @@ export const en: Dictionary = {
           a: "Yes — we schedule weekend and Friday pickups. There's sometimes a small surcharge, but we'll confirm in your quote."
         },
       ],
+      selectorDetails: [
+        "Eco-friendly furniture disposal with proper recycling",
+        "Compliance with local environmental standards",
+      ],
+      selectorTrending: "Sustainable waste management, bulk removals",
       whatsappMessage:
-        "Hello Baytak! I need junk/furniture disposal. I'm attaching photos of the items and my location — please quote me for pickup.",
+        "Hello Good Choice Furniture! I need junk/furniture disposal. I'm attaching photos of the items and my location — please quote me for pickup.",
       ctaLabel: "Book a pickup",
       relatedBlogSlugs: [],
       relatedServiceSlugs: ["moving", "sales"],
     },
   },
+  subcategoryPage: {
+    breadcrumbHome: "Home",
+    benefits: [
+      "Professional and experienced team",
+      "Quick and reliable service",
+      "Transparent pricing, quoted up front",
+      "Same-day slots when we have them",
+    ],
+    whyHeading: "Why choose us",
+    whyText:
+      "One team for curtains, repairs, installation, moving and clear-outs across Doha and the surrounding municipalities.",
+    ctaTitle: "Ready to get started?",
+    ctaText:
+      "Get in touch today. We're available on WhatsApp or by phone for immediate assistance.",
+    exploreHeading: "Explore this service",
+    trendingLabel: "Trending now:",
+  },
+  disposalPage: {
+    eyebrow: "Responsible disposal",
+    featuresHeading: "Why choose our disposal service",
+    acceptedHeading: "What we take",
+    notAcceptedHeading: "What we can't take",
+    ctaTitle: "Need a clear-out?",
+    ctaText:
+      "Send a photo of what needs to go and we'll come back with a price and the earliest slot.",
+    imageAlt: "Waste container ready for a furniture clear-out",
+  },
   gallery: {
-    metaTitle: "Our Work — Before & After Gallery | Baytak",
+    metaTitle: "Our Work — Before & After Gallery | Good Choice Furniture",
+    // TODO(owner): the heading/intro/metaDescription below were reworded to
+    // describe the SERVICES rather than assert documented jobs, because the
+    // gallery currently shows stock illustrations. Restore wording like
+    // "Real jobs from real homes" once real job photos are in place.
     metaDescription:
-      "Photos of real Baytak jobs across Qatar: curtain fittings, sofa repairs, installations, moves and clear-outs — before and after.",
+      "Curtain fittings, sofa repairs, installations, moves and clear-outs across Qatar — see the work we do, before and after.",
     eyebrow: "Gallery",
-    heading: "Real jobs from real homes",
+    heading: "The work we do",
     intro:
-      "A selection of recent work across Doha and beyond. Filter by service — more photos added every week.",
+      "Examples of the work we take on across Doha and beyond. Filter by service.",
     filterAll: "All",
     emptyState: "No photos in this category yet — check back soon.",
     // TODO(owner): replace placeholder items with real job photos (PRD §8).
+    //
+    // Titles here are deliberately GENERIC — the service, no district, no
+    // job specifics. The two pairs that carry photos are stock illustrations
+    // of the service, not documented jobs (see the warning in lib/images.ts),
+    // so a title like "…, West Bay" would assert a job that cannot be shown.
+    // Restore the specific titles only together with real photos of that job.
     items: [
-      { id: "g1", service: "repair", title: "Three-seater sofa re-upholstery, West Bay", kind: "pair" },
-      { id: "g2", service: "sales", title: "Wave curtains with blackout, Lusail", kind: "single" },
-      { id: "g3", service: "installation", title: "TV wall mount with floating shelves, The Pearl", kind: "single" },
-      { id: "g4", service: "moving", title: "Villa move, Al Rayyan to Lusail", kind: "single" },
-      { id: "g5", service: "repair", title: "Majlis foam replacement, Al Wakrah", kind: "pair" },
-      { id: "g6", service: "disposal", title: "Apartment clear-out before handover, West Bay", kind: "single" },
-      { id: "g7", service: "installation", title: "Kitchen cabinet refit, Al Khor", kind: "pair" },
-      { id: "g8", service: "sales", title: "Custom majlis seating, Al Rayyan", kind: "single" },
-      { id: "g9", service: "moving", title: "Office relocation, Msheireb", kind: "single" },
-      { id: "g10", service: "installation", title: "SPC flooring, two-bedroom apartment", kind: "pair" },
-      { id: "g11", service: "disposal", title: "Garden and garage clear-out, Umm Salal", kind: "single" },
-      { id: "g12", service: "repair", title: "Leather armchair restoration, The Pearl", kind: "pair" },
+      { id: "g1", service: "repair", title: "Sofa re-upholstery", kind: "pair", beforeImage: "gallery-sofa-before", afterImage: "gallery-sofa-after" },
+      { id: "g2", service: "sales", title: "Wave curtains with blackout lining", kind: "single", image: "gallery-curtains" },
+      { id: "g3", service: "installation", title: "Floating shelf installation", kind: "single", image: "gallery-shelves" },
+      { id: "g4", service: "moving", title: "Villa move, furniture wrapped", kind: "single", image: "gallery-wrapped" },
+      { id: "g5", service: "repair", title: "Majlis foam replacement", kind: "single", image: "gallery-cushions" },
+      { id: "g6", service: "disposal", title: "Apartment clear-out before handover", kind: "single", image: "gallery-handover" },
+      { id: "g7", service: "installation", title: "Kitchen cabinet refit", kind: "single", image: "gallery-kitchen" },
+      { id: "g8", service: "sales", title: "Custom majlis seating", kind: "single", image: "gallery-majlis" },
+      { id: "g9", service: "moving", title: "Office relocation", kind: "single", image: "gallery-office" },
+      { id: "g10", service: "installation", title: "SPC flooring installation", kind: "single", image: "gallery-flooring" },
+      { id: "g11", service: "disposal", title: "Garden and garage clear-out", kind: "single", image: "gallery-garage" },
+      { id: "g12", service: "repair", title: "Leather armchair restoration", kind: "pair", beforeImage: "gallery-armchair-before", afterImage: "gallery-armchair-after" },
     ],
   },
   // TODO(owner): sample testimonials for layout only — replace with real
@@ -696,13 +948,13 @@ export const en: Dictionary = {
     },
   ],
   about: {
-    metaTitle: "About Baytak — Home Services Team in Doha, Qatar",
+    metaTitle: "About Good Choice Furniture — Home Services Team in Doha, Qatar",
     metaDescription:
-      "Meet the Doha-based team behind Baytak: one crew for furniture, repair, installation, moving and disposal across Qatar.",
+      "Meet the Doha-based team behind Good Choice Furniture: one crew for furniture, repair, installation, moving and disposal across Qatar.",
     eyebrow: "About us",
     heading: "The team your neighbours already call",
     intro: [
-      "Baytak started with a simple observation: getting work done on your home in Qatar meant juggling five different numbers — a curtain shop, a carpenter, a mover, a truck for junk. We built one team that does it all.",
+      "Good Choice Furniture started with a simple observation: getting work done on your home in Qatar meant juggling five different numbers — a curtain shop, a carpenter, a mover, a truck for junk. We built one team that does it all.",
       "Today our crew handles everything from made-to-measure curtains to full villa moves across Doha and the surrounding municipalities. Most of our work comes from repeat customers and their WhatsApp groups — which is exactly how we like it.",
     ],
     valuesHeading: "How we work",
@@ -726,13 +978,15 @@ export const en: Dictionary = {
     ],
     teamHeading: "Based in Doha, on the road daily",
     teamText:
-      "Our carpenters, installers and drivers live across the city — from Al Khor to Al Wakrah — which is how we offer same-week slots almost everywhere. Team photo coming soon.",
+      "Our carpenters, installers and drivers live all over the country, which is how we offer same-week slots just about anywhere in Qatar.",
     licensingHeading: "Licensed & registered",
     licensingText:
-      "Baytak operates under a valid Qatar commercial registration. Registration number and licensing documents available on request.",
+      "Good Choice Furniture operates under a valid Qatar commercial registration. Registration number and licensing documents available on request.",
+    workshopImageAlt: "Our restorer stripping back a chair frame in the workshop",
+    dohaImageAlt: "The Doha skyline at dusk — Qatar, where we work every day",
   },
   blog: {
-    metaTitle: "Home Tips & Guides — Qatar | Baytak",
+    metaTitle: "Home Tips & Guides — Qatar | Good Choice Furniture",
     metaDescription:
       "Practical guides for Qatar homes: moving checklists, curtain measuring, sofa care, and waste segregation rules explained.",
     eyebrow: "Tips & guides",
@@ -746,7 +1000,7 @@ export const en: Dictionary = {
         title: "The Qatar Moving Checklist: 8 Steps for a Painless Move",
         excerpt:
           "End of lease coming up? From DEWA… sorry, Kahramaa — to building access permits, here's the exact order to do things.",
-        metaTitle: "Qatar Moving Checklist — 8 Steps | Baytak",
+        metaTitle: "Qatar Moving Checklist — 8 Steps | Good Choice Furniture",
         metaDescription:
           "Moving home in Qatar? A practical 8-step checklist covering Kahramaa disconnection, building permits, packing and handover cleaning.",
         date: "2026-01-15",
@@ -789,7 +1043,7 @@ export const en: Dictionary = {
         title: "How to Measure Your Windows for Curtains (the Right Way)",
         excerpt:
           "Curtains that puddle, gap or hang short are almost always measuring mistakes. Here's the five-minute method our installers use.",
-        metaTitle: "How to Measure Windows for Curtains | Baytak",
+        metaTitle: "How to Measure Windows for Curtains | Good Choice Furniture",
         metaDescription:
           "Learn to measure windows for curtains like a pro: rail height, fullness, drop and the mistakes that ruin made-to-measure curtains.",
         date: "2026-02-02",
@@ -814,7 +1068,7 @@ export const en: Dictionary = {
             type: "ul",
             items: [
               "Measuring the window instead of the rail",
-              "Forgetting radiators, AC units and skirting when choosing the drop",
+              "Forgetting the AC unit above the window and the skirting below it when choosing the drop",
               "Too little fullness — 1.5x looks flat and skimpy once hung",
               "Ignoring ceiling type: concrete and gypsum need different fixings for the rail",
             ],
@@ -830,7 +1084,7 @@ export const en: Dictionary = {
         title: "Repair or Replace? An Honest Guide for a Tired Sofa",
         excerpt:
           "Sagging seats and worn arms don't always mean a new sofa. Here's how to tell a repairable frame from a lost cause.",
-        metaTitle: "Sofa Repair or Replace? Honest Guide | Baytak",
+        metaTitle: "Sofa Repair or Replace? Honest Guide | Good Choice Furniture",
         metaDescription:
           "Should you repair or replace your sofa? How to judge the frame, foam and fabric — and when re-upholstery beats buying new.",
         date: "2026-02-20",
@@ -871,7 +1125,7 @@ export const en: Dictionary = {
         title: "Getting Rid of Bulky Waste in Qatar: What Goes Where",
         excerpt:
           "Old sofa, broken fridge, renovation offcuts — Qatar's waste rules treat them very differently. A plain-language guide.",
-        metaTitle: "Bulky Waste & Segregation Rules in Qatar | Baytak",
+        metaTitle: "Bulky Waste & Segregation Rules in Qatar | Good Choice Furniture",
         metaDescription:
           "Qatar's waste-segregation rules explained in plain language: what household junk you can dispose of, and what needs a licensed handler.",
         date: "2026-03-05",
@@ -912,7 +1166,7 @@ export const en: Dictionary = {
         title: "TV Wall Mount Installation in Qatar: Common Mistakes & How to Avoid Them",
         excerpt:
           "Wall-mounting a TV is deceptively simple — until it isn't. Here's how to get it right (or why to hire someone who will).",
-        metaTitle: "TV Wall Mount Installation Qatar | Mistakes to Avoid | Baytak",
+        metaTitle: "TV Wall Mount Installation Qatar | Mistakes to Avoid | Good Choice Furniture",
         metaDescription:
           "Guide to TV wall mounting in Qatar: wall types, finding studs/anchors, cable routing, and why professional installation beats DIY.",
         date: "2026-03-12",
@@ -928,7 +1182,7 @@ export const en: Dictionary = {
             type: "ul",
             items: [
               "Using studs finders on concrete — they don't work. Concrete walls need heavy-duty anchors or backing plates rated for the TV weight.",
-              "Mounting above a radiator or AC unit — heat rising from vents warps the bracket and damages electronics above",
+              "Mounting directly below a split AC unit — condensation and drip from the indoor unit lands on the screen and works into the wall fixings",
               "Running cables outside the wall in plain sight — Qatar homes use professional cable trunking or run cables through conduit",
               "Not accounting for HDMI cable length — running cables up a wall to a TV requires routing before mounting",
               "Mounting to a single stud or anchor point — TV mounts need at least two anchor points for safety",
@@ -1009,7 +1263,7 @@ export const en: Dictionary = {
         title: "Furniture Assembly After Moving: The Checklist That Saves Sanity",
         excerpt:
           "Your sofa's in pieces, the bed has no legs, and nothing goes where it's supposed to. Here's the smart way to reassemble.",
-        metaTitle: "Furniture Assembly After Moving | Checklist | Baytak",
+        metaTitle: "Furniture Assembly After Moving | Checklist | Good Choice Furniture",
         metaDescription:
           "Post-move furniture assembly checklist: organizing hardware, identifying parts, avoiding mistakes, and when to call a pro.",
         date: "2026-03-26",
@@ -1061,7 +1315,7 @@ export const en: Dictionary = {
         title: "Choosing the Right Sofa Size for Your Qatar Home: A Practical Guide",
         excerpt:
           "A sofa that fits the space beautifully in the showroom looks cramped at home. Here's how to measure and choose wisely.",
-        metaTitle: "Sofa Size Guide for Qatar Homes | Practical Tips | Baytak",
+        metaTitle: "Sofa Size Guide for Qatar Homes | Practical Tips | Good Choice Furniture",
         metaDescription:
           "How to choose the right sofa size for Qatar apartments and villas: measuring doorways, stairwells, and living space.",
         date: "2026-04-02",
@@ -1111,7 +1365,7 @@ export const en: Dictionary = {
         title: "Smart Furniture for Qatar Homes: Space-Saving Trends That Actually Work",
         excerpt:
           "Smaller apartments, bigger lives — furniture that multitasks, stores, and adapts to living in tight spaces.",
-        metaTitle: "Space-Saving Furniture Trends & Ideas | Qatar | Baytak",
+        metaTitle: "Space-Saving Furniture Trends & Ideas | Qatar | Good Choice Furniture",
         metaDescription:
           "Smart furniture for Qatar apartments: multifunctional pieces, storage solutions, and compact designs that maximize small spaces.",
         date: "2026-04-09",
@@ -1155,7 +1409,7 @@ export const en: Dictionary = {
         title: "Sofa Care in Qatar's Heat & Humidity: Keep Your Furniture Looking New",
         excerpt:
           "High heat, intense sun, and humidity take a toll. Here's how to protect your investment.",
-        metaTitle: "Sofa Care Guide for Qatar Climate | Maintenance Tips | Baytak",
+        metaTitle: "Sofa Care Guide for Qatar Climate | Maintenance Tips | Good Choice Furniture",
         metaDescription:
           "Caring for sofas and upholstered furniture in Qatar: protecting from sun damage, humidity, heat, and how to extend lifespan.",
         date: "2026-04-16",
@@ -1203,7 +1457,7 @@ export const en: Dictionary = {
         title: "Moving in Qatar: What Actually Costs What — A Transparent Breakdown",
         excerpt:
           "Movers quote by the job, not the hour. Here's what you're paying for, so no quotes surprise you.",
-        metaTitle: "Qatar Moving Costs Breakdown | Budget Guide | Baytak",
+        metaTitle: "Qatar Moving Costs Breakdown | Budget Guide | Good Choice Furniture",
         metaDescription:
           "Transparent guide to moving costs in Qatar: what affects the price, typical costs for studios to villas, and how to get an accurate quote.",
         date: "2026-04-23",
@@ -1260,7 +1514,7 @@ export const en: Dictionary = {
         title: "Curtain Styles for Qatar Homes: Choosing Function & Beauty",
         excerpt:
           "Blackout vs. sheer, wave tracks vs. eyelet rings — here's how to pick what actually works for your home.",
-        metaTitle: "Curtain Styles & Care for Qatar Homes | Guide | Baytak",
+        metaTitle: "Curtain Styles & Care for Qatar Homes | Guide | Good Choice Furniture",
         metaDescription:
           "Guide to choosing curtain styles for Qatar: blackout, sheer, thermal, and maintenance for heat/sun protection.",
         date: "2026-04-30",
@@ -1302,7 +1556,7 @@ export const en: Dictionary = {
     ],
   },
   quote: {
-    metaTitle: "Get a Quote — Same-Day Prices on WhatsApp | Baytak",
+    metaTitle: "Get a Quote — Same-Day Prices on WhatsApp | Good Choice Furniture",
     metaDescription:
       "Get a same-day quote for furniture, repair, installation, moving or disposal anywhere in Qatar. Fill the form or message us directly on WhatsApp.",
     eyebrow: "Get a quote",
@@ -1344,9 +1598,9 @@ export const en: Dictionary = {
     },
   },
   contact: {
-    metaTitle: "Contact Baytak — Phone, WhatsApp & Service Areas",
+    metaTitle: "Contact Good Choice Furniture — Phone, WhatsApp & Service Areas",
     metaDescription:
-      "Call or WhatsApp Baytak for home services across Doha, Al Rayyan, Al Wakrah, Lusail, The Pearl, Al Khor and Umm Salal. Open Saturday to Thursday.",
+      "Call or WhatsApp Good Choice Furniture for home services across Doha, Al Rayyan, Al Wakrah, Lusail, The Pearl, Al Khor and Umm Salal. Open Saturday to Thursday.",
     eyebrow: "Contact",
     heading: "Talk to a real person, today",
     intro:
@@ -1358,7 +1612,7 @@ export const en: Dictionary = {
     emailTitle: "Email",
     hoursTitle: "Working hours",
     hours: "Saturday – Thursday\n8:00 AM – 8:00 PM",
-    mapTitle: "Baytak service area — Doha, Qatar",
+    mapTitle: "Good Choice Furniture service area — Doha, Qatar",
     formHeading: "Send us the details",
     formIntro: "Fill this in and it opens WhatsApp with your message ready to send.",
   },

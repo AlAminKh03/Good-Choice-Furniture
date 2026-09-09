@@ -1,7 +1,11 @@
 /**
- * Branded placeholder for imagery until the owner supplies real photos
- * (PRD §8). Swap usages for next/image with Cloudinary URLs later —
- * the props deliberately mirror an image's (label ≈ alt text).
+ * Branded placeholder for the image slots that have no photo yet (PRD §8).
+ *
+ * This is the fallback arm, not the plan: a slot with a key in `imageMap`
+ * renders through next/image against a file in `public/images/`, and this
+ * only shows for keys deliberately left unset rather than filled with a
+ * duplicate of another slot's photo. The props mirror an image's on purpose
+ * (label ≈ alt text) so swapping one in is a one-line change.
  */
 export function PlaceholderImage({
   label,

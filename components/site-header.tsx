@@ -4,15 +4,26 @@ import type { Locale } from "@/lib/site";
 import { localizedPath } from "@/lib/site";
 import { site } from "@/lib/site";
 import { PhoneIcon } from "./icons";
+import { BrandMark } from "./brand-mark";
 import { LanguageToggle } from "./language-toggle";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
+import { NavLinks } from "./nav-links";
 
 /** Sticky header: wordmark, primary nav, EN/AR toggle, phone chip, quote CTA. */
-export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function SiteHeader({
+  locale,
+  dict,
+  otherLocaleBlogSlugs,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  /** Blog slugs the other locale has — see LanguageToggle. */
+  otherLocaleBlogSlugs: readonly string[];
+}) {
   const links = [
     { href: "/", label: dict.nav.home },
-    { href: "/disposal", label: "Disposal" },
+    { href: "/disposal", label: dict.nav.disposal },
     { href: "/services", label: dict.nav.services },
     { href: "/gallery", label: dict.nav.gallery },
     { href: "/about", label: dict.nav.about },
@@ -24,38 +35,34 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
       <div className="container-x relative flex items-center justify-between gap-4 py-3">
         <Link
           href={localizedPath(locale, "/")}
-          className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
+          className="flex min-w-0 items-center gap-2 sm:gap-2.5 hover:opacity-80 transition-opacity"
           aria-label={site.name}
         >
-          <div className="flex items-center justify-center size-10 rounded-lg bg-linear-to-br from-maroon to-brand-deep shadow-md">
-            <svg className="size-6 text-paper" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
-              <path d="M3 4h18c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1h-1v4c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-4H9v4c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-4H3c-.55 0-1-.45-1-1V5c0-.55.45-1 1-1zm2 2v8h14V6H5z"/>
-            </svg>
-          </div>
-          <span className="flex flex-col leading-tight">
-            <span className="font-display text-lg sm:text-xl font-bold text-navy">{site.name}</span>
-            <span className="text-[0.65rem] font-medium text-ink/50">{dict.header.tagline}</span>
+          <BrandMark className="size-9 shrink-0 drop-shadow-md sm:size-10" />
+          <span className="flex min-w-0 flex-col leading-tight">
+            <span className="font-display whitespace-nowrap text-[0.95rem] sm:text-xl font-bold text-navy">
+              {site.name}
+            </span>
+            {/* The tagline is the first thing to go on a phone — it is the
+                least load-bearing line in the header and the reason the
+                wordmark had no room to stay on one line. */}
+            <span className="hidden text-[0.65rem] font-medium text-ink/50 sm:block">
+              {dict.header.tagline}
+            </span>
           </span>
         </Link>
 
-        <nav className="hidden md:block" aria-label="Primary">
-          <ul className="flex items-center gap-6">
-            {links.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={localizedPath(locale, link.href)}
-                  className="text-sm font-semibold text-ink/70 decoration-brass decoration-2 underline-offset-8 transition-colors hover:text-maroon hover:underline"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <NavLinks locale={locale} links={links} navLabel={dict.common.primaryNavLabel} />
 
-        <div className="flex items-center gap-2.5">
-          <ThemeToggle />
-          <LanguageToggle locale={locale} label={dict.common.languageLabel} />
+        <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
+          <span className="hidden sm:inline-flex">
+            <ThemeToggle toDarkLabel={dict.common.themeToDark} toLightLabel={dict.common.themeToLight} />
+          </span>
+          <LanguageToggle
+            locale={locale}
+            label={dict.common.languageLabel}
+            otherLocaleBlogSlugs={otherLocaleBlogSlugs}
+          />
           <a
             href={site.phoneHref}
             data-track="call_click"
@@ -74,6 +81,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
           <MobileNav
             locale={locale}
             links={[...links, { href: "/quote", label: dict.nav.quote }]}
+            themeToggle={<ThemeToggle toDarkLabel={dict.common.themeToDark} toLightLabel={dict.common.themeToLight} />}
             openLabel={dict.common.openMenu}
             closeLabel={dict.common.closeMenu}
           />

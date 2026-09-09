@@ -1,16 +1,27 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale } from "@/lib/i18n";
+import { getDictionary, isLocale, localesWithPost } from "@/lib/i18n";
 import { localizedPath } from "@/lib/site";
 import { articleSchema } from "@/lib/schema";
+import { blogImageKeys, getImageUrl } from "@/lib/images";
 import { JsonLd } from "@/components/json-ld";
 import { WhatsAppButton } from "@/components/cta-buttons";
 
-export async function generateStaticParams() {
-  // Slugs are shared across locales; lang comes from the parent layout.
-  const { en } = await import("@/content/en");
-  return en.blog.posts.map((post) => ({ slug: post.slug }));
+/**
+ * Runs once per locale the parent generated, and returns only the slugs that
+ * locale actually has.
+ *
+ * It used to return the English slug list for every locale. Arabic has four
+ * of the twelve posts, so that prerendered eight Arabic URLs whose only
+ * content was a 404 — while the sitemap listed them and each English post
+ * pointed an hreflang alternate at one. Generating per-locale means an
+ * untranslated post simply has no Arabic URL, which is the honest answer.
+ */
+export async function generateStaticParams({ params }: { params: { lang: string } }) {
+  const dict = await getDictionary(isLocale(params.lang) ? params.lang : "en");
+  return dict.blog.posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -22,15 +33,21 @@ export async function generateMetadata({
   const dict = await getDictionary(isLocale(lang) ? lang : "en");
   const post = dict.blog.posts.find((p) => p.slug === slug);
   if (!post) return {};
+  // Only advertise the locales that have this post translated. Claiming an
+  // alternate that 404s is worse than claiming none: Google reports it as an
+  // hreflang error and can discount the pair.
+  const available = await localesWithPost(slug);
+  const languages = Object.fromEntries(
+    available.map((locale) => [locale, `/${locale}/blog/${slug}`]),
+  );
   return {
     title: { absolute: post.metaTitle },
     description: post.metaDescription,
     alternates: {
       canonical: `/${dict.locale}/blog/${slug}`,
       languages: {
-        en: `/en/blog/${slug}`,
-        ar: `/ar/blog/${slug}`,
-        "x-default": `/en/blog/${slug}`,
+        ...languages,
+        "x-default": `/${available.includes("en") ? "en" : dict.locale}/blog/${slug}`,
       },
     },
   };
@@ -47,6 +64,7 @@ export default async function BlogPostPage({
   const post = dict.blog.posts.find((p) => p.slug === slug);
   if (!post) notFound();
   const related = dict.services[post.relatedService];
+  const cover = getImageUrl(blogImageKeys[slug]);
 
   return (
     <>
@@ -72,6 +90,21 @@ export default async function BlogPostPage({
           </time>
         </div>
         <h1 className="font-display mt-4 text-4xl text-navy">{post.title}</h1>
+
+        {/* Cover. The alt carries the excerpt rather than the title, which the
+            H1 immediately above already announces. */}
+        {cover ? (
+          <figure className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl border border-ink/8 shadow-[0_24px_50px_-24px_rgba(27,94,74,0.35)]">
+            <Image
+              src={cover}
+              alt={post.excerpt}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover"
+            />
+          </figure>
+        ) : null}
 
         <div className="mt-8 space-y-5">
           {post.blocks.map((block, i) => {

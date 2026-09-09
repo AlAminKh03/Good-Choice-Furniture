@@ -8,9 +8,27 @@ export interface Faq {
   a: string;
 }
 
+/**
+ * One subcategory of a service — its own page at
+ * /{lang}/services/{service}/{slug}.
+ *
+ * These live in the dictionaries (not in a component) because three
+ * server-side consumers need them: the sitemap, `generateStaticParams`, and
+ * the crawlable link list on the service page. The `slug` is shared across
+ * locales — it is the URL — while `label` and `description` are translated.
+ */
+export interface SubcategoryContent {
+  slug: string;
+  label: string;
+  /** One-line intro used on the subcategory hero and its showcase card. */
+  description: string;
+}
+
 export interface ServiceContent {
   slug: ServiceSlug;
   name: string;
+  /** Subcategory pages under this service; same slugs in every locale. */
+  subcategories: SubcategoryContent[];
   tagline: string;
   cardDescription: string;
   metaTitle: string;
@@ -27,6 +45,16 @@ export interface ServiceContent {
   notAccepted?: string[];
   notAcceptedNote?: string;
   faqs: Faq[];
+  /**
+   * Two selling points shown under this service in the homepage
+   * ServiceSelector, plus its "trending" line.
+   *
+   * These live here rather than inline in app/[lang]/page.tsx, where they
+   * were hardcoded English for all five services — so the Arabic homepage
+   * rendered fifteen English strings inside its main interactive module.
+   */
+  selectorDetails: string[];
+  selectorTrending: string;
   /** Pre-filled WhatsApp message specific to this service (PRD §5). */
   whatsappMessage: string;
   ctaLabel: string;
@@ -58,6 +86,19 @@ export interface GalleryItem {
   service: ServiceSlug;
   title: string;
   kind: "single" | "pair";
+  /**
+   * Keys into `imageMap` (lib/images.ts), not URLs — the gallery is shared
+   * between locales, so the photo is picked by key and only the `title`
+   * differs per language. Any key left unset renders the branded
+   * placeholder, which is the intended state until the owner supplies real
+   * job photos (PRD §8).
+   */
+  /** `kind: "single"` — the one photo of the finished job. */
+  image?: string;
+  /** `kind: "pair"` — the same item before the work. */
+  beforeImage?: string;
+  /** `kind: "pair"` — the same item after the work. */
+  afterImage?: string;
 }
 
 export interface QuoteFormDict {
@@ -89,6 +130,7 @@ export interface Dictionary {
     gallery: string;
     about: string;
     blog: string;
+    disposal: string;
     quote: string;
     contact: string;
   };
@@ -104,11 +146,25 @@ export interface Dictionary {
     ourProcess: string;
     faqHeading: string;
     areasHeading: string;
+    /** Coverage answer. Deliberately not a list of districts — the business
+     *  works across the whole country, and naming a handful of areas reads
+     *  as a limit to anyone who lives outside them. */
+    areasAllQatar: string;
     relatedServices: string;
     backToServices: string;
     openMenu: string;
     closeMenu: string;
     languageLabel: string;
+    /* Accessible names for controls and landmarks that have no visible text.
+     * These are read aloud, so they belong in the dictionaries like any other
+     * copy — an Arabic screen-reader user should not hit English here. */
+    themeToDark: string;
+    themeToLight: string;
+    /** Accessible name for the testimonial star row, e.g. "5 out of 5 stars". */
+    ratingLabel: string;
+    breadcrumbLabel: string;
+    filtersLabel: string;
+    primaryNavLabel: string;
   };
   header: {
     tagline: string;
@@ -135,8 +191,25 @@ export interface Dictionary {
     heroSubtitle: string;
     heroNote: string;
     heroImageLabel: string;
+    /**
+     * The hero chat card (components/hero-chat.tsx). Each chip's `message` is
+     * pre-typed into the visitor's WhatsApp, so it is written first-person in
+     * the customer's voice, not ours. `id` is an analytics key that must match
+     * across locales; it is never shown to anyone.
+     */
+    heroChat: {
+      headerName: string;
+      headerStatus: string;
+      greeting: string;
+      greetingTime: string;
+      photoCaption: string;
+      chipsLabel: string;
+      chips: { id: string; label: string; message: string }[];
+    };
     videoHeading: string;
     videoTitle: string;
+    /** Accessible name for the click-to-play facade button. */
+    videoPlayLabel: string;
     stats: { value: string; label: string }[];
     servicesEyebrow: string;
     servicesHeading: string;
@@ -154,6 +227,14 @@ export interface Dictionary {
     galleryCta: string;
     faqHeading: string;
     faqs: Faq[];
+    /** Homepage "how it works" booking flow — three steps, WhatsApp-first. */
+    /**
+     * Scrolling hero ticker. Each entry is one claim; the last is the
+     * payoff, because disposal is the service people do not expect a
+     * furniture company to offer.
+     */
+    tickerItems: string[];
+    steps: { title: string; text: string }[];
     ctaTitle: string;
     ctaText: string;
   };
@@ -165,6 +246,30 @@ export interface Dictionary {
     intro: string;
   };
   services: Record<ServiceSlug, ServiceContent>;
+  /** Standalone /disposal landing page (app/[lang]/disposal/page.tsx). */
+  disposalPage: {
+    eyebrow: string;
+    featuresHeading: string;
+    acceptedHeading: string;
+    notAcceptedHeading: string;
+    ctaTitle: string;
+    ctaText: string;
+    imageAlt: string;
+  };
+  /** Shared chrome for every subcategory page; the per-page copy comes
+   *  from the matching `SubcategoryContent`. */
+  subcategoryPage: {
+    breadcrumbHome: string;
+    benefits: string[];
+    whyHeading: string;
+    whyText: string;
+    ctaTitle: string;
+    ctaText: string;
+    /** Heading above the subcategory links on a service page. */
+    exploreHeading: string;
+    /** Label on the home selector's "trending" line. */
+    trendingLabel: string;
+  };
   gallery: {
     metaTitle: string;
     metaDescription: string;
@@ -188,6 +293,8 @@ export interface Dictionary {
     teamText: string;
     licensingHeading: string;
     licensingText: string;
+    workshopImageAlt: string;
+    dohaImageAlt: string;
   };
   blog: {
     metaTitle: string;

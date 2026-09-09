@@ -11,7 +11,7 @@ export function localBusinessSchema(locale: Locale, areas: string[]) {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
     "@id": `${site.url}/#business`,
-    name: locale === "ar" ? "بيتك لخدمات المنزل" : "Baytak Home Services",
+    name: "Good Choice Furniture",
     url: `${site.url}/${locale}`,
     telephone: site.phoneHref.replace("tel:", ""),
     email: site.email,

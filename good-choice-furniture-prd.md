@@ -1,6 +1,6 @@
-# Baytak Home Services — Product Requirements Document (PRD)
+# Good Choice Furniture Home Services — Product Requirements Document (PRD)
 
-*Version 1.0 — placeholder brand name "Baytak" used throughout; swap once finalized.*
+*Version 1.1 — brand name finalized as "Good Choice Furniture" (was a placeholder in v1.0). Domain still open.*
 
 ## 1. Overview
 
@@ -63,7 +63,8 @@ This is **not** an e-commerce checkout site. The goal is to get a visitor to Wha
 - Next.js (React) + Tailwind CSS
 - i18n routing (`/en`, `/ar`) with automatic RTL layout switching
 - Headless CMS (e.g. Sanity) for services, gallery, blog, and testimonials content
-- Cloudinary (or similar) for image/video delivery
+- Images served from `public/images/` via `next/image` (resizing, WebP/AVIF, caching); Cloudinary
+  deferred — revisit if the photo library outgrows the repo. Video stays external (YouTube/Vimeo)
 - Hosting: Vercel
 
 ## 8. Content the business owner needs to supply
@@ -71,7 +72,7 @@ This is **not** an e-commerce checkout site. The goal is to get a visitor to Wha
 - Real photos: before/after per service, team/trucks in action, completed installs
 - 1–2 short videos (homepage intro, one service in progress)
 - Real testimonials with name and area once available
-- Final business name, logo, phone/WhatsApp number, licensing/registration details
+- Logo artwork, phone/WhatsApp number, licensing/registration details (name settled)
 - Confirmation of which waste types are and are not accepted for the Disposal page
 
 ## 9. Out of scope (v1)
@@ -83,7 +84,7 @@ This is **not** an e-commerce checkout site. The goal is to get a visitor to Wha
 
 ## 10. Open questions
 
-- Final business name and domain (`.qa` vs `.com`)
+- Domain: `goodchoicefurniture.qa` vs `.com` (name itself is settled)
 - Whether construction/hazardous waste is handled directly or referred to a licensed partner
 - Budget for CMS subscription and ongoing hosting
 

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { areaKeys, localizedPath } from "@/lib/site";
 import { faqSchema, serviceSchema } from "@/lib/schema";
+import { blogImageKeys, getImageUrl, serviceHeroImageKeys, subcategoryImageKeys } from "@/lib/images";
 import { serviceSlugs, type ServiceSlug } from "@/content/types";
 import { JsonLd } from "@/components/json-ld";
 import { PageHero } from "@/components/page-hero";
@@ -12,8 +14,7 @@ import { ServiceCard } from "@/components/service-card";
 import { FaqAccordion } from "@/components/faq";
 import { BeforeAfterSlider } from "@/components/before-after-slider";
 import { WhatsAppButton, CallButton } from "@/components/cta-buttons";
-import { ArrowIcon, CheckIcon, ShieldIcon } from "@/components/icons";
-import { Truck3d } from "@/components/truck-3d";
+import { ArrowIcon, CheckIcon, PinIcon, ShieldIcon } from "@/components/icons";
 
 export function generateStaticParams() {
   return serviceSlugs.map((slug) => ({ slug }));
@@ -70,8 +71,13 @@ export default async function ServicePage({
       />
       <JsonLd data={faqSchema(s.faqs)} />
 
-      <PageHero eyebrow={dict.nav.services} title={s.name} subtitle={s.heroSubtitle}>
-        {slug === "disposal" ? <Truck3d className="absolute bottom-0 end-6 hidden lg:block" /> : null}
+      <PageHero
+        eyebrow={dict.nav.services}
+        title={s.name}
+        subtitle={s.heroSubtitle}
+        image={getImageUrl(serviceHeroImageKeys[slug])}
+        imageAlt={s.tagline}
+      >
         <WhatsAppButton
           message={s.whatsappMessage}
           label={s.ctaLabel}
@@ -81,7 +87,7 @@ export default async function ServicePage({
       </PageHero>
 
       {/* Overview */}
-      <section className="container-x grid gap-10 py-14 sm:py-16 lg:grid-cols-[1.2fr_1fr]">
+      <section className="container-x grid gap-10 py-12 sm:py-14 lg:grid-cols-[1.2fr_1fr]">
         <div>
           <h2 className="font-display text-3xl text-navy">{s.tagline}</h2>
           {s.overview.map((p) => (
@@ -90,22 +96,23 @@ export default async function ServicePage({
             </p>
           ))}
         </div>
-        <div className="rounded-xl border border-ink/10 bg-sand p-6">
+        {/* Coverage. This used to list seven municipalities, which both
+            implied the list WAS the coverage and stretched into a tall,
+            mostly empty panel beside the overview copy. self-start stops
+            the grid stretching it. */}
+        <div className="self-start rounded-xl border border-ink/10 bg-sand p-6">
           <h3 className="font-display text-sm text-brass">{dict.common.areasHeading}</h3>
-          <ul className="mt-4 space-y-2">
-            {areas.map((area) => (
-              <li key={area} className="flex items-center gap-2 text-sm font-semibold text-ink/75">
-                <CheckIcon className="size-4 text-maroon" />
-                {area}
-              </li>
-            ))}
-          </ul>
+          <p className="mt-3 mb-0 flex items-center gap-2 text-lg font-bold text-navy">
+            <PinIcon className="size-5 shrink-0 text-maroon" />
+            {dict.common.areasAllQatar}
+          </p>
+          <p className="mt-3 mb-0 text-sm/6 text-ink/65">{dict.home.areasText}</p>
         </div>
       </section>
 
       {/* Features */}
       <section className="bg-sand">
-        <div className="container-x py-14 sm:py-16">
+        <div className="container-x py-12 sm:py-14">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {s.features.map((f) => (
               <div key={f.title} className="rounded-xl border border-ink/10 bg-white/70 p-5 transition-colors hover:border-brass/50">
@@ -119,7 +126,7 @@ export default async function ServicePage({
 
       {/* Disposal: compliance + acceptance scope (PRD §5) */}
       {s.compliance ? (
-        <section className="container-x py-14 sm:py-16">
+        <section className="container-x py-12 sm:py-14">
           <div className="rounded-xl border-2 border-teal/40 bg-teal/5 p-6 sm:p-8">
             <div className="flex items-start gap-4">
               <span className="flex size-11 shrink-0 items-center justify-center rounded-md bg-teal text-paper">
@@ -165,7 +172,7 @@ export default async function ServicePage({
 
       {/* Before/after showcase — draggable comparison sliders */}
       {s.showcase ? (
-        <section className="container-x py-14 sm:py-16">
+        <section className="container-x py-12 sm:py-14">
           <SectionHeading eyebrow={dict.gallery.eyebrow} title={dict.home.galleryHeading} />
           <div className="mt-8 grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {s.showcase.map((item) => (
@@ -187,7 +194,7 @@ export default async function ServicePage({
 
       {/* Process */}
       <section className="bg-sand">
-        <div className="container-x py-14 sm:py-16">
+        <div className="container-x py-12 sm:py-14">
           <SectionHeading title={dict.common.ourProcess} />
           <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {s.process.map((step, i) => (
@@ -203,37 +210,98 @@ export default async function ServicePage({
         </div>
       </section>
 
+      {/* Subcategories — the only server-rendered links to these pages, so
+          crawlers can reach them. The home selector also links them, but only
+          after a click, which leaves them invisible to search engines. */}
+      {s.subcategories.length > 0 ? (
+        <section className="container-x py-12 sm:py-14">
+          <h2 className="font-display text-2xl text-navy">
+            {dict.subcategoryPage.exploreHeading}
+          </h2>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {s.subcategories.map((sub) => {
+              const subImg = getImageUrl(subcategoryImageKeys[sub.slug]);
+              return (
+              <li key={sub.slug}>
+                <Link
+                  href={localizedPath(locale, `/services/${s.slug}/${sub.slug}`)}
+                  className="group flex h-full flex-col overflow-hidden rounded-xl border border-ink/8 bg-white transition-all hover:-translate-y-0.5 hover:border-maroon/40 hover:shadow-[0_12px_28px_-14px_rgba(27,28,38,0.3)]"
+                >
+                  {subImg ? (
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <Image
+                        src={subImg}
+                        alt={`${sub.label} — ${s.name}`}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="font-bold text-navy group-hover:text-maroon">
+                      {sub.label}
+                    </h3>
+                    <p className="mt-2 text-sm/6 text-ink/65">{sub.description}</p>
+                  </div>
+                </Link>
+              </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
       {/* FAQ */}
-      <section className="container-x max-w-3xl py-14 sm:py-16">
+      <section className="container-x max-w-3xl py-12 sm:py-14">
         <FaqAccordion faqs={s.faqs} heading={dict.common.faqHeading} />
       </section>
 
       {/* Related Blog Posts */}
       {s.relatedBlogSlugs && s.relatedBlogSlugs.length > 0 ? (
         <section className="bg-sand">
-          <div className="container-x py-14 sm:py-16">
+          <div className="container-x py-12 sm:py-14">
             <h2 className="font-display text-2xl text-navy">Expert Tips & Guides</h2>
             <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {s.relatedBlogSlugs
                 .map((blogSlug) => dict.blog.posts.find((p) => p.slug === blogSlug))
                 .filter(Boolean)
-                .map((post) => (
+                .map((post) => {
+                  const cover = getImageUrl(blogImageKeys[post!.slug]);
+                  return (
                   <Link
                     key={post!.slug}
                     href={localizedPath(locale, `/blog/${post!.slug}`)}
-                    className="group rounded-xl border border-ink/10 bg-white/70 p-5 transition-all hover:border-maroon/50 hover:shadow-md"
+                    className="group flex flex-col overflow-hidden rounded-xl border border-ink/10 bg-white/70 transition-all hover:-translate-y-0.5 hover:border-maroon/50 hover:shadow-md"
                   >
-                    <div className="mb-2 inline-block rounded-full bg-maroon/10 px-2.5 py-1">
-                      <span className="text-xs font-semibold text-maroon">{post!.category}</span>
-                    </div>
-                    <h3 className="font-bold text-navy group-hover:text-maroon">{post!.title}</h3>
-                    <p className="mt-2 text-sm/6 text-ink/70">{post!.excerpt}</p>
-                    <div className="mt-4 flex items-center justify-between text-xs text-ink/60">
-                      <span>{post!.date}</span>
-                      <ArrowIcon className="size-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 rtl:rotate-180" />
+                    {/* Decorative here: the card title already names the post,
+                        so an alt would just repeat it to a screen reader. */}
+                    {cover ? (
+                      <div className="relative aspect-[16/9] overflow-hidden">
+                        <Image
+                          src={cover}
+                          alt=""
+                          aria-hidden
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                    ) : null}
+                    <div className="flex flex-1 flex-col p-5">
+                      <div className="mb-2 inline-flex self-start rounded-full bg-maroon/10 px-2.5 py-1">
+                        <span className="text-xs font-semibold text-maroon">{post!.category}</span>
+                      </div>
+                      <h3 className="font-bold text-navy group-hover:text-maroon">{post!.title}</h3>
+                      <p className="mt-2 flex-1 text-sm/6 text-ink/70">{post!.excerpt}</p>
+                      <div className="mt-4 flex items-center justify-between text-xs text-ink/60">
+                        <span>{post!.date}</span>
+                        <ArrowIcon className="size-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 rtl:rotate-180" />
+                      </div>
                     </div>
                   </Link>
-                ))}
+                  );
+                })}
             </div>
           </div>
         </section>
@@ -241,7 +309,7 @@ export default async function ServicePage({
 
       {/* Related Services */}
       <section className="bg-sand">
-        <div className="container-x py-14 sm:py-16">
+        <div className="container-x py-12 sm:py-14">
           <div className="flex items-center justify-between gap-4">
             <h2 className="font-display text-2xl text-navy">{dict.common.relatedServices}</h2>
             <Link href={localizedPath(locale, "/services")} className="inline-flex items-center gap-1.5 text-sm font-bold text-maroon decoration-brass decoration-2 underline-offset-8 hover:underline">

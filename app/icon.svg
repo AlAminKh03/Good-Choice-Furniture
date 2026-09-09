@@ -1,5 +1,14 @@
+<!-- The Good Choice mark: a house whose roofline is a tick.
+
+     SOURCE OF TRUTH IS lib/brand.ts. A static .svg cannot import, so this is
+     the one hand-kept copy of the geometry — if you change either path or
+     either colour there, change them here too. Everything else (header,
+     footer, social card) reads that module directly.
+
+     The band is a filled polygon rather than a stroke on the roof edge: a
+     centred stroke would hang half its width outside the silhouette, where
+     brass sits at ~1.7:1 against a light page and disappears. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#E14B44"/>
-  <rect x="17" y="17" width="30" height="30" rx="4" transform="rotate(45 32 32)" fill="none" stroke="#E9B949" stroke-width="4"/>
-  <rect x="26" y="26" width="12" height="12" rx="2" transform="rotate(45 32 32)" fill="#FCF7F4"/>
+  <path d="M7.5 27 L20.5 36 L46.5 11 L56.5 22 L56.5 54 L7.5 54 Z" fill="#1B5E4A"/>
+  <path d="M7.5 27 L20.5 36 L46.5 11 L49.53 14.33 L20.96 41.8 L7.5 32.47 Z" fill="#D4A574"/>
 </svg>

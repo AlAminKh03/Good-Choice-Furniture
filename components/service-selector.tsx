@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import type { ServiceSlug } from '@/content/types';
 import { localizedPath } from '@/lib/site';
@@ -18,35 +19,16 @@ interface ServiceSelectorProps {
   serviceImages?: Partial<Record<ServiceSlug, string | undefined>>;
   serviceBgColors?: Partial<Record<ServiceSlug, string>>;
   serviceIconComponents?: Record<ServiceSlug, React.ReactNode>;
+  /**
+   * Subcategory links per service, already localized. These used to be a
+   * hardcoded English map in this file, which meant the Arabic home page
+   * showed English chips; they now come from the dictionary via the page.
+   */
+  serviceSubcategories: Record<ServiceSlug, { label: string; slug: string }[]>;
+  /** Localized label for the "Trending now" line. */
+  trendingLabel: string;
 }
 
-const serviceSubcategories: Record<ServiceSlug, { label: string; slug: string }[]> = {
-  sales: [
-    { label: 'Furniture Sales', slug: 'furniture-sales' },
-    { label: 'Curtains & Draping', slug: 'curtains-draping' },
-    { label: 'Decor & Accessories', slug: 'decor-accessories' },
-  ],
-  repair: [
-    { label: 'Sofa & Couch Repair', slug: 'sofa-repair' },
-    { label: 'Upholstery Restoration', slug: 'upholstery-restoration' },
-    { label: 'Frame & Structure', slug: 'frame-structure' },
-  ],
-  installation: [
-    { label: 'Curtain Installation', slug: 'curtain-installation' },
-    { label: 'Furniture Assembly', slug: 'furniture-assembly' },
-    { label: 'Wall Mounting', slug: 'wall-mounting' },
-  ],
-  moving: [
-    { label: 'Furniture Moving', slug: 'furniture-moving' },
-    { label: 'Packing Services', slug: 'packing-services' },
-    { label: 'Relocation Support', slug: 'relocation-support' },
-  ],
-  disposal: [
-    { label: 'Furniture Disposal', slug: 'furniture-disposal' },
-    { label: 'Fabric Waste Recycling', slug: 'fabric-recycling' },
-    { label: 'Bulk Removal', slug: 'bulk-removal' },
-  ],
-};
 
 const defaultBgColors: Record<ServiceSlug, string> = {
   sales: 'bg-blue-100',
@@ -69,12 +51,15 @@ export function ServiceSelector({
   services,
   serviceImages = {},
   serviceBgColors = {},
-  serviceIconComponents = defaultIconComponents
+  serviceIconComponents = defaultIconComponents,
+  serviceSubcategories,
+  trendingLabel,
 }: ServiceSelectorProps) {
   const slugs = Object.keys(services) as ServiceSlug[];
   const [selected, setSelected] = useState<ServiceSlug>(slugs[0]);
 
   const bgColor = serviceBgColors[selected] || defaultBgColors[selected];
+  const showcaseImage = serviceImages[selected];
 
   return (
     <div className="space-y-6">
@@ -121,9 +106,9 @@ export function ServiceSelector({
 
       {/* Subcategories as links to separate pages */}
       <div className="flex flex-wrap gap-2 justify-center">
-        {serviceSubcategories[selected].map((sub, idx) => (
+        {(serviceSubcategories[selected] ?? []).map((sub) => (
           <Link
-            key={idx}
+            key={sub.slug}
             href={localizedPath(locale, `/services/${selected}/${sub.slug}`)}
             className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-full border-2 border-navy text-navy font-semibold text-sm hover:bg-navy hover:text-paper transition-all"
           >
@@ -135,45 +120,52 @@ export function ServiceSelector({
       {/* Dynamic showcase section - Modern floating card design */}
       <div className={`rounded-3xl overflow-hidden transition-all duration-300 p-6 sm:p-8 lg:p-12 ${bgColor} relative min-h-96 sm:min-h-[500px] flex items-center`}>
         {/* Background image (full width) */}
-        {serviceImages[selected] && (
+        {showcaseImage && (
           <div className="absolute inset-0 overflow-hidden rounded-3xl">
-            <img
-              src={serviceImages[selected]}
+            <Image
+              src={showcaseImage}
               alt={services[selected].title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              fill
+              // No `priority` here: the home hero band above is the LCP
+              // candidate now and carries it. Two competing priority images
+              // would just split the early bandwidth.
+              sizes="(max-width: 1024px) 100vw, 1200px"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
             {/* Dark gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20"></div>
           </div>
         )}
 
-        {/* Floating white card - overlays the image */}
-        <div className="relative z-10 max-w-xl lg:max-w-2xl">
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-10">
+        {/* Floating white card - overlays the image. Kept deliberately
+            compact so the photo behind it stays the hero of the section
+            rather than a thin border around a text panel. */}
+        <div className="relative z-10 max-w-xs sm:max-w-sm lg:max-w-md">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-5 sm:p-6">
             {/* Accent line */}
-            <div className="w-12 h-1.5 bg-gradient-to-r from-maroon to-transparent mb-6 rounded-full"></div>
+            <div className="w-10 h-1 bg-gradient-to-r from-maroon to-transparent mb-4 rounded-full"></div>
 
             {/* Title */}
-            <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-navy mb-3 leading-tight">
+            <h3 className="font-display text-2xl sm:text-3xl font-bold text-navy mb-2 leading-tight">
               {services[selected].title}
             </h3>
 
             {/* Subtitle description */}
-            <p className="text-base sm:text-lg text-ink/70 mb-6 leading-relaxed">
+            <p className="text-sm text-ink/70 mb-4 leading-relaxed">
               {services[selected].description}
             </p>
 
             {/* Details list */}
             {services[selected].details && (
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-2 mb-4">
                 {services[selected].details.map((detail, idx) => (
-                  <li key={idx} className="flex gap-3">
+                  <li key={idx} className="flex gap-2.5">
                     <div className="shrink-0 mt-0.5">
-                      <div className="flex items-center justify-center size-5 rounded-full bg-maroon/10">
-                        <CheckIcon className="size-3 text-maroon" />
+                      <div className="flex items-center justify-center size-4 rounded-full bg-maroon/10">
+                        <CheckIcon className="size-2.5 text-maroon" />
                       </div>
                     </div>
-                    <span className="text-ink/80 text-sm sm:text-base leading-relaxed">{detail}</span>
+                    <span className="text-ink/80 text-sm leading-snug">{detail}</span>
                   </li>
                 ))}
               </ul>
@@ -181,9 +173,9 @@ export function ServiceSelector({
 
             {/* Trending badge */}
             {services[selected].trending && (
-              <div className="pt-5 border-t border-border/30">
-                <p className="text-xs sm:text-sm text-ink/70 leading-relaxed">
-                  <span className="font-bold text-navy">Trending Now:</span>
+              <div className="pt-3.5 border-t border-border/30">
+                <p className="text-xs text-ink/70 leading-relaxed">
+                  <span className="font-bold text-navy">{trendingLabel}</span>
                   <br />
                   <span className="text-ink/60">{services[selected].trending}</span>
                 </p>

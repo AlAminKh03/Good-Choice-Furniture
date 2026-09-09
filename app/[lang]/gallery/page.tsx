@@ -43,6 +43,7 @@ export default async function GalleryPage({
           beforeLabel={dict.common.before}
           afterLabel={dict.common.after}
           emptyState={g.emptyState}
+          filtersLabel={dict.common.filtersLabel}
           locale={locale}
         />
       </section>

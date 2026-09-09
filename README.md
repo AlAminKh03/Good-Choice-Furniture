@@ -1,7 +1,8 @@
-# Baytak — Home Services Website
+# Good Choice Furniture — Home Services Website
 
 Bilingual (English/Arabic, full RTL) marketing & lead-generation site for a Qatar home
-services company. Built to the spec in `baytak-prd.md`. Theme: blush-white / rose-red / navy with colorful per-service accents (see `app/globals.css`).
+services company. Built to the spec in `good-choice-furniture-prd.md`. Theme: "Emerald Elegance" —
+emerald primary and brass accents on warm off-white, with a full dark variant (see `app/globals.css`).
 
 **Stack:** Next.js 16 (App Router, static export-friendly) · Tailwind CSS 4 · TypeScript
 
@@ -27,8 +28,13 @@ pnpm lint   # eslint
 
 ## Before launch (owner-supplied, PRD §8)
 
-1. Replace placeholders in `lib/site.ts`: final name, domain, phone/WhatsApp, email, video id, CR number
-2. Swap `PlaceholderImage` usages for real photos (`next/image` + Cloudinary)
+1. Replace the remaining placeholders in `lib/site.ts`: domain, phone/WhatsApp, email, intro video id,
+   CR number. The name is final. The domain is the urgent one — it is the base for every canonical
+   URL, the sitemap and the JSON-LD
+2. Replace the stock photos in `public/images/` with real job/team/showroom shots, and fill the
+   `imageMap` keys in `lib/images.ts` that are still unset (those render `PlaceholderImage`).
+   **Give a replacement a new filename** — overwriting a path in place keeps serving the cached
+   old photo for hours; see the header comment in `lib/images.ts`
 3. Replace sample testimonials in `content/*.ts` with real reviews
 4. Set `NEXT_PUBLIC_GA_ID` in `.env` to enable GA4 (WhatsApp/call/form events are pre-wired)
 5. Create Google Business Profile with all 5 services; submit `/sitemap.xml` in Search Console
@@ -36,4 +42,7 @@ pnpm lint   # eslint
 ## Deferred from PRD
 
 - Headless CMS (Sanity) wiring — content currently lives in `content/*.ts`; dictionary shape is CMS-ready
-- Real photos/videos, real testimonials, final branding (blocked on owner)
+- Cloudinary — images are served from `public/images/` through `next/image` instead, which covers
+  resizing, WebP/AVIF and caching without a third-party origin. Revisit only if the owner's photo
+  library outgrows the repo
+- Real photos/videos, real testimonials, final domain and contact details (blocked on owner)

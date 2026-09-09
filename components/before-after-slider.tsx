@@ -1,7 +1,55 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 import { PlaceholderImage } from "./placeholder-image";
+
+/**
+ * One full-bleed layer of the comparison. Renders the real photo when the
+ * item has one and falls back to the branded placeholder when it does not,
+ * so a pair with only one of its two photos supplied still works.
+ */
+function ComparisonLayer({
+  src,
+  label,
+  badge,
+  className = "",
+}: {
+  src?: string;
+  label: string;
+  badge: string;
+  className?: string;
+}) {
+  if (!src) {
+    return (
+      <PlaceholderImage
+        label={label}
+        badge={badge}
+        ratio="aspect-square"
+        className={`absolute inset-0 rounded-none border-0 ${className}`}
+      />
+    );
+  }
+
+  return (
+    <div className={`absolute inset-0 ${className}`}>
+      <Image
+        src={src}
+        alt={`${label} — ${badge}`}
+        fill
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+        // Images are natively draggable. Without this, pressing on the photo
+        // starts an HTML5 image drag, which cancels the pointer capture and
+        // stops `pointermove` — the handle jumps a few pixels and then sticks.
+        draggable={false}
+        className="object-cover"
+      />
+      <span className="absolute start-3 top-3 rounded-full bg-maroon px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-paper rtl:tracking-normal">
+        {badge}
+      </span>
+    </div>
+  );
+}
 
 function subscribeDir(onChange: () => void) {
   const observer = new MutationObserver(onChange);
@@ -22,12 +70,18 @@ export function BeforeAfterSlider({
   label,
   beforeLabel,
   afterLabel,
+  beforeSrc,
+  afterSrc,
   className = "",
 }: {
   /** Alt-style description of the job shown (both layers). */
   label: string;
   beforeLabel: string;
   afterLabel: string;
+  /** Photo of the item before the work; placeholder shown when absent. */
+  beforeSrc?: string;
+  /** Photo of the same item after the work; placeholder shown when absent. */
+  afterSrc?: string;
   className?: string;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -76,6 +130,12 @@ export function BeforeAfterSlider({
     <div
       ref={trackRef}
       className={`relative aspect-square touch-none overflow-hidden rounded-xl border border-brass/30 select-none ${className}`}
+      // Belt-and-braces against native drag stealing the gesture: any
+      // draggable descendant (an image, or an ancestor <a>) would otherwise
+      // start a drag mid-swipe and freeze the handle.
+      onDragStart={(e) => e.preventDefault()}
+      // If this ever sits inside a link again, a drag must not also navigate.
+      onClick={(e) => e.preventDefault()}
       onPointerDown={(e) => {
         dragging.current = true;
         e.currentTarget.setPointerCapture(e.pointerId);
@@ -92,12 +152,7 @@ export function BeforeAfterSlider({
       }}
     >
       {/* Before layer (full) */}
-      <PlaceholderImage
-        label={label}
-        badge={beforeLabel}
-        ratio="aspect-square"
-        className="absolute inset-0 rounded-none border-0"
-      />
+      <ComparisonLayer src={beforeSrc} label={label} badge={beforeLabel} />
       {/* After layer, revealed from inline-start up to the handle.
           clip-path is physical, so mirror the inset in RTL. */}
       <div
@@ -109,11 +164,11 @@ export function BeforeAfterSlider({
             : `inset(0 ${100 - pos}% 0 0)`,
         }}
       >
-        <PlaceholderImage
+        <ComparisonLayer
+          src={afterSrc}
           label={label}
           badge={afterLabel}
-          ratio="aspect-square"
-          className="absolute inset-0 rounded-none border-0 bg-sand-deep"
+          className="bg-sand-deep"
         />
       </div>
 
